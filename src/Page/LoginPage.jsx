@@ -13,6 +13,7 @@ import { LoginConstants } from "../common/constants/LoginConstants";
 import BaseLogin from "../Component/BASE/BASELOGIN";
 import { ErrorMessages, Regex } from "../common/Validations";
 import * as Yup from "yup";
+import { FieldNames } from "../common/constants/FormFields";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -21,14 +22,14 @@ export default function LoginPage() {
     const loginSchema = Yup.object({
     email: Yup.string()
       .email(ErrorMessages.InvalidEmail)
-      .required(ErrorMessages.Required("Email")),
+      .required(ErrorMessages.Required(FieldNames.Email)),
 
     password: Yup.string()
       .min(8, ErrorMessages.MinLength(8))
       .matches(Regex.UpperCase, ErrorMessages.UpperCaseError)
       .matches(Regex.Num, ErrorMessages.NumError)
       .matches(Regex.SpecialChar, ErrorMessages.SpecialCharError)
-      .required(ErrorMessages.Required("Password")),
+      .required(ErrorMessages.Required(FieldNames.Password)),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
