@@ -1,4 +1,4 @@
-import { API_ROUTES } from "../Routes";
+import { API_ROUTES } from "./ApiRoutes";
 import axiosInstance from "./axiosInstance";
 export const loginUser = async (email, password) => {
   try {
