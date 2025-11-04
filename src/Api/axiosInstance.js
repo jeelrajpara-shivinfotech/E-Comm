@@ -1,9 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../routes/ApiRoutes";
+import { StatusCodes } from "http-status-codes"; 
+
 
 // Create the axios instance
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -32,7 +33,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === StatusCodes.UNAUTHORIZED) {
       console.warn("Unauthorized! Redirecting to login...");
       localStorage.removeItem("token");
       window.location.href = "/"; 
