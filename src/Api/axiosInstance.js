@@ -1,11 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../Routes/ApiRoutes";
 import { StatusCodes } from "http-status-codes"; 
-export const BASE_URL = "https://ecomm-intern-demo.onrender.com/api";
+
 
 // Create the axios instance
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
