@@ -8,7 +8,6 @@ function BaseLogin({ handleSubmit , validationSchema}) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
@@ -46,7 +45,6 @@ function BaseLogin({ handleSubmit , validationSchema}) {
           </Form>
         )}
       </Formik>
-    </div>
   );
 }
 
