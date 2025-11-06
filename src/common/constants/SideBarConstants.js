@@ -2,7 +2,7 @@ import { HiOutlineUser, HiOutlineCog, HiOutlineChartBar } from "react-icons/hi";
 import { FaCartShopping } from "react-icons/fa6";
 import { ROUTES } from "../../Routes/RouteConstants";
 
-export const SideBarLinks = [
+export const sideBarLinks = [
   {
     id: 1,
     label: "E-commerce",

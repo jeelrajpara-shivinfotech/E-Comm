@@ -20,8 +20,8 @@ function BaseLogin({ handleSubmit , validationSchema}) {
               id="email"
               name="email"
               type="email"
-              label={LoginConstants.EmailLabel}
-              placeholder={LoginConstants.EmailPlaceholder}
+              label={LoginConstants.emailLabel}
+              placeholder={LoginConstants.emailPlaceholder}
             />
 
             {/* Password Field */}
@@ -29,8 +29,8 @@ function BaseLogin({ handleSubmit , validationSchema}) {
               id="password"
               name="password"
               type="password"
-              label={LoginConstants.PasswordLabel}
-              placeholder={LoginConstants.PasswordPlaceholder}
+              label={LoginConstants.passwordLabel}
+              placeholder={LoginConstants.passwordPlaceholder}
               showToggle={true}
               showPassword={showPassword}
               togglePassword={() => setShowPassword(!showPassword)}
@@ -39,8 +39,8 @@ function BaseLogin({ handleSubmit , validationSchema}) {
             {/* Submit Button */}
             <BaseButton type="submit" disabled={isSubmitting}>
               {isSubmitting
-                ? LoginConstants.LoggingButton
-                : LoginConstants.LoginButton}
+                ? LoginConstants.loggingButton
+                : LoginConstants.loggingButton}
             </BaseButton>
           </Form>
         )}
