@@ -1,4 +1,4 @@
-export const FieldNames = {
+export const fieldNames = {
   Email: "Email",
   Password: "Password",
 };
