@@ -5,8 +5,8 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import { getOrderStatusCount } from "../../Api/DashboardApi";
-import { pieChartTabs, dashboardHeaders, pieChartColor } from "../../common/constants/DashboardCardConstants";
+import { getOrderStatusCount } from "../../Api/dashboardApi";
+import { pieChartTabs, dashboardHeaders, pieChartColor } from "../../common/constants/dashboardConstants";
 
 const OrderPieChart = () => {
   const [timeFrame, setTimeFrame] = useState("year");
@@ -57,7 +57,6 @@ const OrderPieChart = () => {
       </div>
 
       <div className="flex items-center justify-between flex-wrap md:flex-nowrap lg:flex-nowrap">
-        {/* Chart */}
         <div className="w-[300px] h-[300px]">
           <ResponsiveContainer>
             <PieChart responsive>
@@ -80,8 +79,7 @@ const OrderPieChart = () => {
             </PieChart>
           </ResponsiveContainer>
         </div>
-
-
+        
         <div className="space-y-3 text-md">
           {chartData.map((item) => (
             <div key={item.name} className="flex items-center gap-2 flex-wrap">

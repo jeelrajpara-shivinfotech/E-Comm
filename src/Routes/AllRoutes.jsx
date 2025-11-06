@@ -1,6 +1,6 @@
 import MainLayout from "../Layouts/MainLayout";
 import LoginPage from "../Page/LoginPage";
-import Dashboard from "../Page/DashBoard/Dashboard";
+import Dashboard from "../Layouts/DashboardLayout";
 import Category from "../Page/DashBoard/Category";
 import Ecommerce from "../Page/DashBoard/E-Commerce";
 import { ROUTES } from "./RouteConstants";
@@ -10,14 +10,13 @@ export const routes = [
     path: ROUTES.ROOT, 
     element: <MainLayout />,
     children: [
-      { index: true, element: <LoginPage /> }, // ✅ this is fine — default "/" route
-
+      { index: true, element: <LoginPage /> }, 
       {
-        path: ROUTES.DASHBOARD, // "/dashboard"
+        path: ROUTES.DASHBOARD, 
         element: <Dashboard />,
         children: [
-          { index: true, element: <Ecommerce /> }, // ✅ default child route for /dashboard
-          { path: ROUTES.CATEGORY, element: <Category /> }, // ✅ relative path (not /dashboard/category)
+          { index: true, element: <Ecommerce /> }, 
+          { path: ROUTES.CATEGORY, element: <Category /> }, 
         ],
       },
     ],
