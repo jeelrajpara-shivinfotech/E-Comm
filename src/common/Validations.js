@@ -1,10 +1,10 @@
-export const Regex = {
+export const regex = {
   UpperCase: /[A-Z]/,
   Num: /[0-9]/,
   SpecialChar: /[!@#$%^&*]/,
 };
 
-export const ErrorMessages = {
+export const errorMessages = {
   Required: (field) => `${field} is required`,
   InvalidEmail: "Enter a valid email address",
   MinLength: (field, min) => `${field} must be at least ${min} characters`,
