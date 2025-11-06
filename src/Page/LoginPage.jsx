@@ -38,7 +38,7 @@ export default function LoginPage() {
       const data = await loginUser(values); 
       toast.success(data.message);
       
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.data.token);
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
       // const messages = Array.isArray(error.message)

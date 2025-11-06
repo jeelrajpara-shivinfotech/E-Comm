@@ -6,10 +6,9 @@ import { StatusCodes } from "http-status-codes";
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json", 
   },
 });
-
 axiosInstance.interceptors.request.use(
   (config) => {
     // Get token from localStorage

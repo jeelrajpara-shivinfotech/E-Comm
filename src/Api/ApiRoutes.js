@@ -1,5 +1,9 @@
 export const API_ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
-  DASHBOARD: "/dashboard",
+  DASHBOARD_STATS: "/dashboard/dashboard-statistic",
+  HIGHEST_PURCHASE_ORDERS: "/dashboard/highest-purchase-order",
+  USER_REPORT : '/order/users-report',
+  ORDER_STATUS_COUNT : '/order/piechart-data',
+  ORDER_REPORT : '/order/orders-report',
 };
