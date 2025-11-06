@@ -6,7 +6,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { getOrderStatusCount } from "../../Api/DashboardApi";
-import { pieChartTabs , dashboardHeaders , pieChartColor} from "../../common/constants/DashboardCardConstants";
+import { pieChartTabs, dashboardHeaders, pieChartColor } from "../../common/constants/DashboardCardConstants";
 
 const OrderPieChart = () => {
   const [timeFrame, setTimeFrame] = useState("year");
@@ -15,17 +15,22 @@ const OrderPieChart = () => {
   const fetchData = async (selectedTimeFrame = timeFrame) => {
     try {
       const res = await getOrderStatusCount({ timeFrame: selectedTimeFrame });
-      const total = res.data.reduce((sum, d) => sum + (d.value || 0), 0) || 1;
-      const data = res.data.map((item, index) => ({
-        name: item.label,
-        value: item.value ?? 0,
-        percent: ((item.value ?? 0) / total) * 100,
-        color: pieChartColor[index % pieChartColor.length],
-      }));
+      const total =
+        res?.data?.reduce((sum, d) => sum + (d?.value ?? 0), 0) || 1;
+
+      const data =
+        res?.data?.map((item, index) => ({
+          name: item?.label ?? "Unknown",
+          value: item?.value ?? 0,
+          percent: ((item?.value ?? 0) / total) * 100,
+          color: pieChartColor[index % pieChartColor.length],
+        })) ?? [];
+
       setChartData(data);
     } catch (error) {
       console.error("Error fetching order status count:", error);
     }
+
   };
 
   useEffect(() => {
@@ -43,7 +48,7 @@ const OrderPieChart = () => {
           onChange={(e) => setTimeFrame(e.target.value)}
           className="border border-gray-300 rounded-lg px-2 py-1 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
-         {pieChartTabs.map((tab) => (
+          {pieChartTabs.map((tab) => (
             <option key={tab} value={tab}>
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </option>

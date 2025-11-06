@@ -58,32 +58,19 @@ export const pieChartTabs = [
   "year", "month"
 ]
 
-export const userReport = {
-  phone : "Phone",
-  email : "Email",
-  gender : "Gender",
-  name : "Name",
-  page : "Page",
-  of : "of",
-  noUsers : "No users found.",
-  previous : "Previous",
-  next : "Next",
-  sortBy : "Sort By",
-  rowsPerPage : "Rows Per Page"
-}
+export const userReportColumn = [
+    { key: "name", label: "Name", sortable: true },
+    { key: "email", label: "E-Mail", sortable: true },
+    { key: "phone_number", label: "Phone", sortable: true },
+    { key: "gender", label: "Gender", sortable: true },
+]
 
-export const orderReport = {
-  orderId : "Order ID",
-  customerName : "Customer Name", 
-  orderAmount : "Order Amount",
-  orderName : "Order Name",
-  totalItems : "Total Items",
-  page : "Page",  
-  of : "of",
-  noOrders : "No orders found.",
-  previous : "Previous",
-  next : "Next",
-  rowsPerPage : "Rows per page"
-}
+export const orderReportColumns = [
+  { key: "id", label: "Order Id", sortable: true },
+  { key: "order_name", label: "Order Name" },
+  { key: "name", label: "Customer Name" },
+  { key: "order_amount", label: "Amount", render: (v) => `₹${v}` },
+  { key: "total_items", label: "Total Items" },
+];
 
 export const pieChartColor = ["#FACC15", "#5ED5C8", "#1E7E68"];

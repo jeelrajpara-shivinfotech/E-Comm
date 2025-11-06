@@ -11,10 +11,10 @@ const DashboardCard = () => {
   const fetchData = async () => {
     try {
       const res = await getDashboardStats();
-      const data = res.data;
+      const data = res?.data ?? {};
       const formattedData = dashboardCardConstants.map((item) => ({
         label: item.title,
-        value: data[item.key] ?? 0,
+       value: data?.[item.key] ?? 0,
       }));
 
       setChartData(formattedData);
@@ -27,8 +27,6 @@ const DashboardCard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  if(!chartData) return <BaseLoader/>
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full h-full">

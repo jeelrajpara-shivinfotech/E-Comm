@@ -1,9 +1,9 @@
 export const API_ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
-  DASHBOARDSTATS: "/dashboard/dashboard-statistic",
-  HIGHESTPURCHASEORDERS: "/dashboard/highest-purchase-order",
-  USERREPORT : '/order/users-report',
-  ORDERSTATUSCOUNT : '/order/piechart-data',
-  ORDERREPORT : '/order/orders-report',
+  DASHBOARD_STATS: "/dashboard/dashboard-statistic",
+  HIGHEST_PURCHASE_ORDERS: "/dashboard/highest-purchase-order",
+  USER_REPORT : '/order/users-report',
+  ORDER_STATUS_COUNT : '/order/piechart-data',
+  ORDER_REPORT : '/order/orders-report',
 };

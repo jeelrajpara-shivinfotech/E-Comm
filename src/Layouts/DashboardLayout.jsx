@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import "flowbite";
-import logo from "../../assets/logo.svg";
-import iconText from "../../assets/logo-text.svg";
+import logo from "../assets/svg";
+import iconText from "../assets/logo-text.svg";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { SideBarArrow } from "../../assets/svg";
-import { SideBarLinks } from "../../common/constants/SideBarConstants";
+import { SideBarArrow } from "../assets/svg";
+import { SideBarLinks } from "../common/constants/SideBarConstants";
 
-const Dashboard = () => {
+const DashboardLayout = () => {
   const location = useLocation();
   return (
     <>
@@ -65,4 +65,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;
