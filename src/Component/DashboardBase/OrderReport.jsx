@@ -1,9 +1,7 @@
 import React from "react";
-import BaseTable from "../BASE/BaseTable";
-import { getOrderReport } from "../../Api/DashboardApi";
-import { dashboardHeaders, orderReportColumns } from "../../common/constants/DashboardCardConstants";
-
-
+import BaseTable from "../Base/BaseTable";
+import { getOrderReport } from "../../Api/dashboardApi";
+import { dashboardHeaders, orderReportColumns, placeHolderConst } from "../../common/constants/dashboardConstants";
 
 export default function OrderReport() {
   return (
@@ -11,7 +9,7 @@ export default function OrderReport() {
       title={dashboardHeaders.orderReport}
       columns={orderReportColumns}
       fetchDataFn={getOrderReport}
-      searchPlaceholder="Search by order or customer..."
+      searchPlaceholder={placeHolderConst.orderPlaceHolder}
     />
   );
 }

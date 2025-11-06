@@ -10,13 +10,12 @@ import {
   Cell,
   LabelList,
 } from "recharts";
-import { getHighestPurchaseOrder } from "../../Api/DashboardApi";
-import BaseTooltip from "../BASE/BaseTooltip";
-import { dashboardHeaders } from "../../common/constants/DashboardCardConstants";
+import { getHighestPurchaseOrder } from "../../Api/dashboardApi";
+import BaseTooltip from "../Base/BaseTooltip";
+import { dashboardHeaders } from "../../common/constants/dashboardConstants";
 
 const DashboardBarChart = () => {
   const [chartData, setChartData] = useState([]);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {

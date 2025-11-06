@@ -1,4 +1,3 @@
-import React from "react";
 import { Field, ErrorMessage } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -32,7 +31,6 @@ function BaseInput({
           className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
         />
 
-        {/* Password toggle icon */}
         {showToggle && (
           <button
             type="button"

@@ -1,4 +1,4 @@
-import { API_ROUTES } from "./ApiRoutes";
+import { API_ROUTES } from "./apiRoutes";
 import axiosInstance from "./axiosInstance";
 
 export const loginUser = async (payload) => {

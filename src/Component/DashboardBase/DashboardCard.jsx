@@ -1,9 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
-import { dashboardCardConstants, dashboardHeaders } from "../../common/constants/DashboardCardConstants";
-import { getDashboardStats } from "../../Api/DashboardApi";
+import { useState, useEffect } from "react";
+import { dashboardCardConstants, dashboardHeaders } from "../../common/constants/dashboardConstants";
+import { getDashboardStats } from "../../Api/dashboardApi";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import BaseTooltip from "../BASE/BaseTooltip";
-import BaseLoader from "../BASE/BaseLoader";
+import BaseTooltip from "../Base/BaseTooltip";
 
 const DashboardCard = () => {
   const [chartData, setChartData] = useState([]);
