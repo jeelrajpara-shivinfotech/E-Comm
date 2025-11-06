@@ -1,7 +1,6 @@
-import BaseTable from "../BASE/BaseTable";
-import { getUserReport } from "../../Api/DashboardApi";
-import { dashboardHeaders, userReportColumn } from "../../common/constants/DashboardCardConstants";
-
+import BaseTable from "../Base/BaseTable";
+import { getUserReport } from "../../Api/dashboardApi";
+import { dashboardHeaders, placeHolderConst, userReportColumn } from "../../common/constants/dashboardConstants";
 
 export default function UserReport() {
   return (
@@ -9,7 +8,7 @@ export default function UserReport() {
       title={dashboardHeaders.userReport}
       columns={userReportColumn}
       fetchDataFn={getUserReport}
-      searchPlaceholder="Search by name or email..."
+      searchPlaceholder={placeHolderConst.userPlaceHolder}
     />
   );
 }
