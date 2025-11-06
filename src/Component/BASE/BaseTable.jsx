@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
-import { tableConstant } from "../../common/constants/TableConstants";
 import BaseSelect from "./BaseSelect";
+import { tableConstant } from "../../common/constants/tableConstant";
 
 export default function BaseTable({
     title,

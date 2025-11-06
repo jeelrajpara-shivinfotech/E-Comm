@@ -1,4 +1,4 @@
-export const LoginConstants = {
+export const loginConstants = {
   backToHome: "Back to home",
   welcomeHeadingPart1: "Welcome back! Please",
   welcomeHeadingPart2: "Sign in to",
