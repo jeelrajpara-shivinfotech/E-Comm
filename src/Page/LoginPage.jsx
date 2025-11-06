@@ -10,7 +10,7 @@ import BaseLoader from "../Component/BASE/BaseLoader";
 import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
 import { LoginConstants } from "../common/constants/LoginConstants";
-import BaseLogin from "../Component/BASE/BASELOGIN";
+import BaseLogin from "../Component/BASE/BaseLogin";
 import { ErrorMessages, Regex } from "../common/Validations";
 import * as Yup from "yup";
 import { FieldNames } from "../common/constants/FormFields";
@@ -38,7 +38,7 @@ export default function LoginPage() {
       const data = await loginUser(values); 
       toast.success(data.message);
       
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.data.token);
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
       // const messages = Array.isArray(error.message)
