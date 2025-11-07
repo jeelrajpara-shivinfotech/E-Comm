@@ -1,5 +1,5 @@
 import BaseTable from "../BaseComponents/BaseTable";
-import { getUserReport } from "../../Api/dashboardApi";
+import { getUserReport } from "../../Api/dashboardApis";
 import { dashboardHeaders, placeHolderConst, userReportColumn } from "../../common/constants/dashboardConstants";
 
 export default function UserReport() {

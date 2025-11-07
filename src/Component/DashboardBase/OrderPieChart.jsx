@@ -5,7 +5,7 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import { getOrderStatusCount } from "../../Api/dashboardApi";
+import { getOrderStatusCount } from "../../Api/dashboardApis";
 import { pieChartTabs, dashboardHeaders, pieChartColor } from "../../common/constants/dashboardConstants";
 
 const OrderPieChart = () => {

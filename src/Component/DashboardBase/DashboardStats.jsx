@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { dashboardCardConstants, dashboardHeaders } from "../../common/constants/dashboardConstants";
-import { getDashboardStats } from "../../Api/dashboardApi";
+import { getDashboardStats } from "../../Api/dashboardApis";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import BaseTooltip from "../BaseComponents/BaseTooltip";
 

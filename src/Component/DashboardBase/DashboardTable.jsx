@@ -10,7 +10,7 @@ import {
   Cell,
   LabelList,
 } from "recharts";
-import { getHighestPurchaseOrder } from "../../Api/dashboardApi";
+import { getHighestPurchaseOrder } from "../../Api/dashboardApis";
 import BaseTooltip from "../BaseComponents/BaseTooltip";
 import { dashboardHeaders } from "../../common/constants/dashboardConstants";
 
