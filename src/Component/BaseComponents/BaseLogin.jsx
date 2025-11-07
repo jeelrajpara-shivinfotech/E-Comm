@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { loginConstants } from "../../common/constants/loginConstants";
+import { loginConstants } from "../../common/constants/loginConstant";
 import BaseInput from "./BaseInput";
 import BaseButton from "./BaseButton";
 

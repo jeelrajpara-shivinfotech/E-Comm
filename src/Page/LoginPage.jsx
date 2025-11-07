@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formField";
 import BaseLoader from "../Component/BaseComponents/BaseLoader";
 import BaseLogin from "../Component/BaseComponents/BaseLogin";
-import { loginConstant } from "../common/constants/loginConstants";
+import { loginConstant } from "../common/constants/loginConstant";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
