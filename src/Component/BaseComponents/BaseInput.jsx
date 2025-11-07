@@ -18,7 +18,7 @@ function BaseInput({
       {label && (
         <label
           htmlFor={id}
-          className="block text-sm mb-1.5 font-medium text-gray-600 leading-5"
+          className="block text-sm mb-1.5 font-medium text-gray-600 leading-5 inter"
         >
           {label}
           {required && <span className="text-red-500 ms-1">*</span>} 

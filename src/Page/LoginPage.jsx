@@ -108,7 +108,7 @@ export default function LoginPage() {
                 {loginConstant.welcomeHeadingPart3}
               </h2>
 
-              <p className="text-[15px] pt-5 font-normal leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14">
+              <p className="text-[14px] pt-5 font-normal leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14 inter">
                 {loginConstant.welcomeParagraph}
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function LoginPage() {
               <h2 className="text-3xl mb-3 font-semibold lg:text-[26px] 2xl:text-[32px] lexend leading-normal!">
                 {loginConstant.rightHeading}
               </h2>
-              <p className="text-gray-700 leading-[1.85] md:leading-loose 2xl:px-6">
+              <p className="text-gray-700 leading-[1.85] md:leading-loose 2xl:px-6 inter text-[15px]">
                 {loginConstant.rightParagraph}
               </p>
             </div>
