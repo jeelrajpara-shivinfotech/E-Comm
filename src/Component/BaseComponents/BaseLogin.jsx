@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { loginConstants } from "../../common/constants/loginConstant";
 import BaseInput from "./BaseInput";
 import BaseButton from "./BaseButton";
+import { loginConstant } from "../../common/constants/loginConstant";
 
 function BaseLogin({ handleSubmit, validationSchema }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,8 +21,8 @@ function BaseLogin({ handleSubmit, validationSchema }) {
             required={true}
             name="email"
             type="email"
-            label={loginConstants.emailLabel}
-            placeholder={loginConstants.emailPlaceholder}
+            label={loginConstant.emailLabel}
+            placeholder={loginConstant.emailPlaceholder}
           />
 
           {/* Password Field */}
@@ -31,8 +31,8 @@ function BaseLogin({ handleSubmit, validationSchema }) {
             name="password"
             required = {true}
             type="password"
-            label={loginConstants.passwordLabel}
-            placeholder={loginConstants.passwordPlaceholder}
+            label={loginConstant.passwordLabel}
+            placeholder={loginConstant.passwordPlaceholder}
             showToggle={true}
             showPassword={showPassword}
             togglePassword={() => setShowPassword(!showPassword)}
@@ -42,8 +42,8 @@ function BaseLogin({ handleSubmit, validationSchema }) {
           {/* Submit Button */}
           <BaseButton type="submit" disabled={isSubmitting}>
             {isSubmitting
-              ? loginConstants.loggingButton
-              : loginConstants.loginButton}
+              ? loginConstant.loggingButton
+              : loginConstant.loginButton}
           </BaseButton>
         </Form>
       )}
