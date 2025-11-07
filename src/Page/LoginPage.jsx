@@ -4,7 +4,7 @@ import logo from "../assets/logo.svg";
 import iconText from "../assets/logo-text.svg";
 import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
-import BaseLoader from "../Component/BASE/BaseLoader";
+import BaseLoader from "../Component/Base/BaseLoader";
 import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
 import { loginConstants } from "../common/constants/loginConstants";
