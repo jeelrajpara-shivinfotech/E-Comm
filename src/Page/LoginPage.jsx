@@ -8,7 +8,7 @@ import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
 import { errorMessages, regex } from "../common/Validations";
 import * as Yup from "yup";
-import { fieldNames } from "../common/constants/formFields";
+import { fieldNames } from "../common/constants/formField";
 import BaseLoader from "../Component/BaseComponents/BaseLoader";
 import BaseLogin from "../Component/BaseComponents/BaseLogin";
 import { loginConstant } from "../common/constants/loginConstants";
