@@ -1,4 +1,4 @@
-import BaseTable from "../Base/BaseTable";
+import BaseTable from "../BaseComponents/BaseTable";
 import { getUserReport } from "../../Api/dashboardApi";
 import { dashboardHeaders, placeHolderConst, userReportColumn } from "../../common/constants/dashboardConstants";
 

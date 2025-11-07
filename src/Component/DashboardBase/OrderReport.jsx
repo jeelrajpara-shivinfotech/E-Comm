@@ -1,5 +1,5 @@
 import React from "react";
-import BaseTable from "../Base/BaseTable";
+import BaseTable from "../BaseComponents/BaseTable";
 import { getOrderReport } from "../../Api/dashboardApi";
 import { dashboardHeaders, orderReportColumns, placeHolderConst } from "../../common/constants/dashboardConstants";
 

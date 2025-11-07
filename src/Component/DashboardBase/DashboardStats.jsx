@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { dashboardCardConstants, dashboardHeaders } from "../../common/constants/dashboardConstants";
 import { getDashboardStats } from "../../Api/dashboardApi";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import BaseTooltip from "../Base/BaseTooltip";
+import BaseTooltip from "../BaseComponents/BaseTooltip";
 
 const DashboardStats = () => {
   const [chartData, setChartData] = useState([]);

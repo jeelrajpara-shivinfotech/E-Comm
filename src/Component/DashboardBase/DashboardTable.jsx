@@ -11,7 +11,7 @@ import {
   LabelList,
 } from "recharts";
 import { getHighestPurchaseOrder } from "../../Api/dashboardApi";
-import BaseTooltip from "../Base/BaseTooltip";
+import BaseTooltip from "../BaseComponents/BaseTooltip";
 import { dashboardHeaders } from "../../common/constants/dashboardConstants";
 
 const DashboardBarChart = () => {

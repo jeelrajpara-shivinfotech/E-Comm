@@ -9,8 +9,8 @@ import { ArrowLeft, Underline } from "../assets/svg";
 import { errorMessages, regex } from "../common/Validations";
 import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formFields";
-import BaseLoader from "../Component/Base/BaseLoader";
-import BaseLogin from "../Component/Base/BaseLogin";
+import BaseLoader from "../Component/BaseComponents/BaseLoader";
+import BaseLogin from "../Component/BaseComponents/BaseLogin";
 import { loginConstant } from "../common/constants/loginConstants";
 
 export default function LoginPage() {
