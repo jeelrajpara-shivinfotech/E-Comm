@@ -1,0 +1,3 @@
+{
+  "buildCommand": "npm rebuild rollup && npm rebuild lightningcss && npm run build"
+}
