@@ -20,7 +20,7 @@ export default function LoginPage() {
   const loginSchema = Yup.object({
     email: Yup.string()
       .email(errorMessages.InvalidEmail)
-      .required(errorMessages.Required(fieldNames.Email)),
+      .required(errorMessages.Required(fieldNames.Email)), 
 
     password: Yup.string()
       .required(errorMessages.Required(fieldNames.Password))
