@@ -6,12 +6,12 @@ import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
 import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
-import { loginConstants } from "../common/constants/loginConstants";
 import BaseLogin from "../Component/Base/BaseLogin";
 import { errorMessages, regex } from "../common/Validations";
 import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formFields";
 import BaseLoader from "../Component/Base/BaseLoader";
+import { loginConstant } from "../common/constants/loginConstants";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ export default function LoginPage() {
         className="sticky start-0 top-0 z-20 flex items-center justify-center bg-blue-600 p-3.5 text-sm font-medium text-white md:p-4 lg:hidden lexand"
       >
         <ArrowLeft />
-        <p className="ms-1 lexend !important">{loginConstants.backToHome}</p>
+        <p className="ms-1 lexend !important">{loginConstant.backToHome}</p>
       </Link>
 
       {/* MAIN CONTAINER */}
@@ -89,7 +89,7 @@ export default function LoginPage() {
               className="absolute -top-5 start-0 hidden py-8 text-gray-500 hover:text-gray-700 lg:flex lg:items-center 2xl:-top-7 2xl:ps-20 3xl:left-6"
             >
               <ArrowLeft color="gray" />
-              <p className="ms-1 font-medium lexend text-sm">{loginConstants.backToHome}</p>
+              <p className="ms-1 font-medium lexend text-sm">{loginConstant.backToHome}</p>
             </Link>
 
             {/* LOGO + HEADER */}
@@ -100,16 +100,16 @@ export default function LoginPage() {
               </Link>
 
               <h2 className="font-bold mb-5 text-[26px] leading-snug md:text-3xl md:leading-normal lg:mb-7 lg:pe-16 lg:text-[28px] xl:text-3xl 2xl:pe-8 2xl:text-4xl lexend ">
-                {loginConstants.welcomeHeadingPart1}{" "}
+                {loginConstant.welcomeHeadingPart1}{" "}
                 <span className="relative inline-block ">
-                  {loginConstants.welcomeHeadingPart2}
+                  {loginConstant.welcomeHeadingPart2}
                   <Underline />
                 </span>{" "}
                 {loginConstants.welcomeHeadingPart3}
               </h2>
 
               <p className="text-[15px] pt-5 font-normal leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14">
-                {loginConstants.welcomeParagraph}
+                {loginConstant.welcomeParagraph}
               </p>
             </div>
 
@@ -123,10 +123,10 @@ export default function LoginPage() {
           <div className="pb-8 text-center xl:pt-10 lg:pt-10 ">
             <div className=" mb-10 pt-2">
               <h2 className="text-3xl mb-3 font-semibold lg:text-[26px] 2xl:text-[32px] lexend leading-normal!">
-                {loginConstants.rightHeading}
+                {loginConstant.rightHeading}
               </h2>
               <p className="text-gray-700 leading-[1.85] md:leading-loose 2xl:px-6">
-                {loginConstants.rightParagraph}
+                {loginConstant.rightParagraph}
               </p>
             </div>
           </div>
