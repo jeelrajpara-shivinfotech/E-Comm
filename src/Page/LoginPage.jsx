@@ -6,11 +6,11 @@ import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
 import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
-import BaseLogin from "../Component/Base/BaseLogin";
 import { errorMessages, regex } from "../common/Validations";
 import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formFields";
 import BaseLoader from "../Component/Base/BaseLoader";
+import BaseLogin from "../Component/Base/BaseLogin";
 import { loginConstant } from "../common/constants/loginConstants";
 
 export default function LoginPage() {
