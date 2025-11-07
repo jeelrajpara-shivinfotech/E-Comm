@@ -3,7 +3,7 @@ function BaseButton({ children, ...props }) {
         <button
             type="submit"
             {...props}
-            className="w-full bg-black text-white py-3 cursor-pointer rounded-md flex items-center justify-center
+            className="w-full bg-black text-white py-3 cursor-pointer rounded-md flex items-center justify-center lexend
                 "
         >
             {children}

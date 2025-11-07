@@ -4,7 +4,7 @@ import { getDashboardStats } from "../../Api/dashboardApi";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import BaseTooltip from "../Base/BaseTooltip";
 
-const DashboardCard = () => {
+const DashboardStats = () => {
   const [chartData, setChartData] = useState([]);
 
   const fetchData = async () => {
@@ -60,4 +60,4 @@ const DashboardCard = () => {
   );
 };
 
-export default DashboardCard;
+export default DashboardStats;

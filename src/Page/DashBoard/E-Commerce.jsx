@@ -1,4 +1,4 @@
-import DashboardCard from "../../Component/DashboardBase/DashboardCard";
+import DashboardStats from "../../Component/DashboardBase/DashboardStats";
 import DashboardTable from "../../Component/DashboardBase/DashboardTable";
 import OrderPieChart from "../../Component/DashboardBase/OrderPieChart";
 import UserTable from "../../Component/DashboardBase/UserReport";
@@ -10,7 +10,7 @@ function Ecommerce() {
     <div className="md:p-6 p-0 bg-gray-50 ">
       <div className="flex flex-wrap justify-between gap-6">
         <div className="flex-1 min-w-[300px]">
-          <DashboardCard />
+          <DashboardStats />
         </div>
         <div className="flex-1 min-w-[300px]">
           <OrderPieChart />

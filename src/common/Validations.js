@@ -5,10 +5,8 @@ export const regex = {
 };
 
 export const errorMessages = {
-  Required: (field) => `${field} is required`,
-  InvalidEmail: "Enter a valid email address",
-  MinLength: (field, min) => `${field} must be at least ${min} characters`,
-  UpperCaseError: "Must contain at least one uppercase letter",
-  NumError: "Must contain at least one number",
-  SpecialCharError: "Must contain at least one special character",
+  Required: (field) => `${field} is required.`,
+  InvalidEmail: "Email should be in correct format.",
+  PasswordComplexity:
+    "Your password should be at least 8 characters. Should include uppercase letter, lowercase letter, one number and one special character.",
 };

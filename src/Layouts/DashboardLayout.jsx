@@ -4,8 +4,15 @@ import iconText from "../assets/logo-text.svg";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { SideBarArrow } from "../assets/svg";
 import { sideBarLinks } from "../common/constants/SideBarConstants";
+import { titleConst, titles } from "../common/constants/routeConsts";
+import { useEffect } from "react";
 const DashboardLayout = () => {
   const location = useLocation();
+  useEffect(() => {
+    const path = location.pathname;
+    const title = titles[path] || titleConst.ecomm;
+    document.title = `${title} /${titleConst.ecomm}`; 
+  }, [location]);
   return (
     <>
       <button
@@ -35,11 +42,10 @@ const DashboardLayout = () => {
               <Link
                 key={id}
                 to={path}
-                className={`flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ${
-                  location.pathname === path
+                className={`flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ${location.pathname === path
                     ? "bg-blue-50 text-blue-600 font-medium"
                     : ""
-                }`}
+                  }`}
               >
                 <Icon className="w-5 h-5 mr-3" />
                 {label}

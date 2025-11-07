@@ -58,26 +58,44 @@ const OrderPieChart = () => {
 
       <div className="flex items-center justify-between flex-wrap md:flex-nowrap lg:flex-nowrap">
         <div className="w-[300px] h-[300px]">
-          <ResponsiveContainer>
-            <PieChart responsive>
-              {chartData.map((entry, index) => (
-                <Pie
-                  key={index}
-                  data={[entry]}
-                  dataKey="value"
-                  startAngle={90}
-                  endAngle={calcEndAngle(entry.percent)}
-                  innerRadius={50 + index * 20}
-                  outerRadius={65 + index * 20}
-                  stroke="none"
-                  className="border rounded-4xl"
-                  cornerRadius={20}
-                >
-                  <Cell fill={entry.color} className="bg-blue-700" />
-                </Pie>
-              ))}
-            </PieChart>
-          </ResponsiveContainer>
+         <ResponsiveContainer>
+  <PieChart>
+    {chartData.map((entry, index) => {
+      const inner = 50 + index * 20;
+      const outer = 65 + index * 20;
+      return (
+        <React.Fragment key={index}>
+          {/* Background ring */}
+          <Pie
+            data={[{ value: 100 }]} // Full circle background
+            dataKey="value"
+            startAngle={90}
+            endAngle={-270} // full 360 deg
+            innerRadius={inner}
+            outerRadius={outer}
+            stroke="none"
+            fill="#e5e7eb" // gray-200 (track color)
+          />
+
+          {/* Foreground arc */}
+          <Pie
+            data={[entry]}
+            dataKey="value"
+            startAngle={90}
+            endAngle={90 - (360 * entry.percent) / 100}
+            innerRadius={inner}
+            outerRadius={outer}
+            stroke="none"
+            cornerRadius={20}
+          >
+            <Cell fill={entry.color} />
+          </Pie>
+        </React.Fragment>
+      );
+    })}
+  </PieChart>
+</ResponsiveContainer>
+
         </div>
         
         <div className="space-y-3 text-md">
