@@ -105,7 +105,7 @@ export default function LoginPage() {
                   {loginConstant.welcomeHeadingPart2}
                   <Underline />
                 </span>{" "}
-                {loginConstants.welcomeHeadingPart3}
+                {loginConstant.welcomeHeadingPart3}
               </h2>
 
               <p className="text-[15px] pt-5 font-normal leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14">
