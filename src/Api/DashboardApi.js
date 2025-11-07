@@ -1,4 +1,4 @@
-import { API_ROUTES } from "./apiRoutes"
+import { API_ROUTES } from "./apiRoute"
 import axiosInstance from "./axiosInstance"
 
 export const getDashboardStats = async () => {
