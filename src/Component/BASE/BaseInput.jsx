@@ -1,3 +1,4 @@
+
 import { Field, ErrorMessage } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -9,6 +10,7 @@ function BaseInput({
   placeholder,
   showToggle = false,
   showPassword,
+  required = false,
   togglePassword,
 }) {
   return (
@@ -16,9 +18,10 @@ function BaseInput({
       {label && (
         <label
           htmlFor={id}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className="block text-sm mb-1.5 font-medium text-gray-600 leading-5"
         >
           {label}
+          {required && <span className="text-red-500 ms-1">*</span>} 
         </label>
       )}
 
@@ -31,6 +34,7 @@ function BaseInput({
           className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
         />
 
+        {/* Password toggle icon */}
         {showToggle && (
           <button
             type="button"
