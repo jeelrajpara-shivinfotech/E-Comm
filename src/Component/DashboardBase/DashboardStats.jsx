@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
 import { dashboardCardConstants, dashboardHeaders } from "../../common/constants/dashboardConstants";
 import { getDashboardStats } from "../../Api/dashboardApis";
-import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  AreaChart,
+  Area,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 import BaseTooltip from "../BaseComponents/BaseTooltip";
 
 const DashboardStats = () => {
@@ -13,48 +22,53 @@ const DashboardStats = () => {
       const data = res?.data ?? {};
       const formattedData = dashboardCardConstants.map((item) => ({
         label: item.title,
-       value: data?.[item.key] ?? 0,
+        value: data?.[item.key] ?? 0,
       }));
-
       setChartData(formattedData);
     } catch (error) {
       console.error("Error fetching dashboard summary:", error);
     }
   };
 
-  console.log("chartData", chartData);
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full h-full">
-      <p className="text-lg font-bold mb-6">{dashboardHeaders.dashboardOverView}</p>
+      <p className="text-lg font-bold mb-14 ">{dashboardHeaders.dashboardOverView}</p>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={chartData} barSize={45} responsive="true" >
-          <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+        <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} responsive>
+          <defs>
+            <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="rgb(40, 46, 202)" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="rgb(40, 46, 202)" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
+
+          <CartesianGrid horizontal={false} vertical={false} />
           <XAxis
             dataKey="label"
-            tick={{ fontSize: 12 }}
-            interval={0}
-            angle={-20}
-            textAnchor="end"
-            height={60}
+            tick={{ fontSize: 12, fill: "#333" }}
+            interval="preserveStartEnd"
+            textAnchor="middle"
+            height={40}
+            axisLine={{ stroke: "rgb(227, 227, 227)", strokeWidth: 1 }}
+            tickLine={false}
           />
 
-          <YAxis allowDecimals={false} />
-          <Tooltip
-            cursor={{ fill: "transparent" }}
-            content={<BaseTooltip />}
-          />
-
+          <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: "#333" }} axisLine={{ stroke: "rgb(227, 227, 227)", strokeWidth: 1 }} tickLine={false} width="auto" />
+          <Tooltip cursor={{ fill: "transparent" }} content={<BaseTooltip />} />
           <Legend />
-          <Bar dataKey="value" radius={[6, 6, 0, 0]} fill="rgb(40, 46, 202)">
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill="rgb(40, 46, 202)" />
-            ))}
-          </Bar>
-        </BarChart>
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke="rgb(40, 46, 202)"
+            fillOpacity={1}
+            fill="url(#colorBlue)"
+            strokeWidth={2}
+          />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

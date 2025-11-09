@@ -11,7 +11,7 @@ const DashboardLayout = () => {
   useEffect(() => {
     const path = location.pathname;
     const title = titles[path] || titleConst.ecomm;
-    document.title = `${title} /${titleConst.ecomm}`; 
+    document.title = `${title} /${titleConst.ecomm}`;
   }, [location]);
   return (
     <>
@@ -20,7 +20,7 @@ const DashboardLayout = () => {
         data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
       >
         <span className="sr-only">Open sidebar</span>
         <SideBarArrow />
@@ -28,7 +28,7 @@ const DashboardLayout = () => {
 
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white shadow-md"
+        className="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full md:translate-x-0 bg-white shadow-md"
         aria-label="Sidebar"
       >
         <div className="h-full flex flex-col px-8 py-6 overflow-y-auto">
@@ -55,11 +55,12 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      <main className="sm:ml-80 bg-gray-50 min-h-screen p-8 shadow-sm border-l-2 border-gray-100">
-        <div className=" ">
+      <main className="md:ml-80 bg-gray-50 min-h-screen p-8 shadow-sm border-l-2 border-gray-100">
+        <div>
           <Outlet />
         </div>
       </main>
+
     </>
   );
 };

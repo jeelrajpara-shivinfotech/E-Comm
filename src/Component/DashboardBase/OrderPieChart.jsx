@@ -37,11 +37,9 @@ const OrderPieChart = () => {
     fetchData();
   }, [timeFrame]);
 
-  const calcEndAngle = (percent) => 90 - (percent / 100) * 360;
-
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm  h-full">
-      <div className="flex justify-between items-start mb-6 sm:flex-wrap gap-2">
+      <div className="flex justify-between items-start mb-6 flex-wrap gap-2">
         <p className=" text-lg font-bold">{dashboardHeaders.ordersOverView}</p>
         <select
           value={timeFrame}
@@ -56,48 +54,48 @@ const OrderPieChart = () => {
         </select>
       </div>
 
-      <div className="flex items-center justify-between flex-wrap md:flex-nowrap lg:flex-nowrap">
+      <div className="flex items-center justify-between flex-wrap ">
         <div className="w-[300px] h-[300px]">
-         <ResponsiveContainer>
-  <PieChart>
-    {chartData.map((entry, index) => {
-      const inner = 50 + index * 20;
-      const outer = 65 + index * 20;
-      return (
-        <React.Fragment key={index}>
-          {/* Background ring */}
-          <Pie
-            data={[{ value: 100 }]} // Full circle background
-            dataKey="value"
-            startAngle={90}
-            endAngle={-270} // full 360 deg
-            innerRadius={inner}
-            outerRadius={outer}
-            stroke="none"
-            fill="#e5e7eb" // gray-200 (track color)
-          />
+          <ResponsiveContainer>
+            <PieChart>
+              {chartData.map((entry, index) => {
+                const inner = 50 + index * 20;
+                const outer = 65 + index * 20;
+                return (
+                  <React.Fragment key={index}>
+                    {/* Background ring */}
+                    <Pie
+                      data={[{ value: 100 }]} 
+                      dataKey="value"
+                      startAngle={90}
+                      endAngle={-270}
+                      innerRadius={inner}
+                      outerRadius={outer}
+                      stroke="none"
+                      fill="#e5e7eb" 
+                    />
 
-          {/* Foreground arc */}
-          <Pie
-            data={[entry]}
-            dataKey="value"
-            startAngle={90}
-            endAngle={90 - (360 * entry.percent) / 100}
-            innerRadius={inner}
-            outerRadius={outer}
-            stroke="none"
-            cornerRadius={20}
-          >
-            <Cell fill={entry.color} />
-          </Pie>
-        </React.Fragment>
-      );
-    })}
-  </PieChart>
-</ResponsiveContainer>
+                    {/* Foreground arc */}
+                    <Pie
+                      data={[entry]}
+                      dataKey="value"
+                      startAngle={90}
+                      endAngle={90 - (360 * entry.percent) / 100}
+                      innerRadius={inner}
+                      outerRadius={outer}
+                      stroke="none"
+                      cornerRadius={20}
+                    >
+                      <Cell fill={entry.color} />
+                    </Pie>
+                  </React.Fragment>
+                );
+              })}
+            </PieChart>
+          </ResponsiveContainer>
 
         </div>
-        
+
         <div className="space-y-3 text-md">
           {chartData.map((item) => (
             <div key={item.name} className="flex items-center gap-2 flex-wrap">

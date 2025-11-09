@@ -87,7 +87,7 @@ export default function BaseTable({
             {/* Table */}
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm text-gray-700">
-                    <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-600 font-semibold">
+                    <thead className="bg-gray-100 border-b border-gray-200 text-xs uppercase text-gray-600 font-semibold">
                         <tr>
                             {columns.map((col) => (
                                 <th
@@ -144,7 +144,7 @@ export default function BaseTable({
 
             {/* Pagination */}
             <div className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 flex-wrap gap-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ">
                     <span>{tableConstant.rowsPerPage}</span>
                     <BaseSelect
                         value={limit}
@@ -153,7 +153,7 @@ export default function BaseTable({
                             setPage(1);
                         }}
                         options={rowsPerPageOptions.map((num) => ({ label: num, value: num }))}
-                        className="w-20"
+                        className="w-20 bg-gray-100"
                     />
                 </div>
 
@@ -161,34 +161,61 @@ export default function BaseTable({
                     <span>
                         {tableConstant.page} {page} {tableConstant.of} {totalPages}
                     </span>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
+                        {/* First Page */}
                         <button
                             onClick={() => handlePageChange(1)}
                             disabled={page === 1}
-                            className="p-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-40"
+                            aria-label="First page"
+                            className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
+                ${page === 1
+                                    ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                            }
                         >
-                            <BiChevronsLeft />
+                            <BiChevronsLeft size={18} />
                         </button>
+
+                        {/* Previous Page */}
                         <button
                             onClick={() => handlePageChange(page - 1)}
                             disabled={page === 1}
-                            className="p-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-40"
+                            aria-label="Previous page"
+                            className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
+                ${page === 1
+                                    ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                            }
                         >
-                            <IoIosArrowBack />
+                            <IoIosArrowBack size={18} />
                         </button>
+
+                        {/* Next Page */}
                         <button
                             onClick={() => handlePageChange(page + 1)}
                             disabled={page === totalPages}
-                            className="p-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-40"
+                            aria-label="Next page"
+                            className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
+                ${page === totalPages
+                                    ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                            }
                         >
-                            <IoIosArrowForward />
+                            <IoIosArrowForward size={18} />
                         </button>
+
+                        {/* Last Page */}
                         <button
                             onClick={() => handlePageChange(totalPages)}
                             disabled={page === totalPages}
-                            className="p-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-40"
+                            aria-label="Last page"
+                            className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
+                ${page === totalPages
+                                    ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                            }
                         >
-                            <BiChevronsRight />
+                            <BiChevronsRight size={18} />
                         </button>
                     </div>
                 </div>
