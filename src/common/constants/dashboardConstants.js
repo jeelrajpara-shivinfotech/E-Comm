@@ -77,5 +77,6 @@ export const pieChartColor = ["#FACC15", "#5ED5C8", "#1E7E68"];
 
 export const placeHolderConst = {
   userPlaceHolder : "Search by name or email...",
-  orderPlaceHolder : "Search by order or customer..."
+  orderPlaceHolder : "Search by order or customer...",
+  categoryPlaceHolder : "Search by category name"
 }
