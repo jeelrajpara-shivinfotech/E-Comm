@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa";
-import { getListOfCategory } from "../../Api/categoryApis";
+import { deleteCategory, getListOfCategory } from "../../Api/categoryApis";
 import { categoryColumns, categoryHeaders } from "../../common/constants/categoryConstants";
-import { placeHolderConst } from "../../common/constants/dashboardConstants";
 import BaseButton from "../../Component/BaseComponents/BaseButton";
 import BaseTable from "../../Component/BaseComponents/BaseTable";
 import BaseModal from "../../Component/BaseComponents/BaseModal";
 import CreateCategory from "../../Component/CategoryBase/CreateCategory";
+import { placeHolderConst } from "../../common/constants/dashboardConstants";
 
 function Category() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Do you want to delete this record?")) return;
+    try {
+      const res = await deleteCategory(id);
+      toast.success(res.message || "Category deleted successfully");
+      tableRef.current?.refresh();
+    } catch (error) {
+      toast.error("Failed to delete category");
+    }
+  };
 
   return (
     <div>
@@ -29,20 +41,24 @@ function Category() {
       </div>
 
       <BaseTable
-        columns={categoryColumns}
+        columns={categoryColumns(handleDelete)}
         fetchDataFn={getListOfCategory}
         searchPlaceholder={placeHolderConst.categoryPlaceHolder}
         pageKey="page"
         limitKey="pageSize"
       />
 
-      {/* Modal for Add Category */}
       <BaseModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Add New Category"
       >
-        <CreateCategory onClose={() => setIsModalOpen(false)} />
+        <CreateCategory
+          onClose={() => {
+            setIsModalOpen(false);
+            tableRef.current?.refresh(); 
+          }}
+        />
       </BaseModal>
     </div>
   );

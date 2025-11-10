@@ -9,7 +9,7 @@ export const categoryHeaders = {
   edit: "Edit Category",
 };
 
-export const categoryColumns = [
+export const categoryColumns = (handleDelete) => [
   {
     key: "id",
     label: "ID",

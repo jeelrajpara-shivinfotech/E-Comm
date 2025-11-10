@@ -23,3 +23,8 @@ export const fileUpload = async (formData) => {
 
   return res.data;
 };
+
+// Delete upload
+export const deleteCategory = async(id) => {
+    const res = await axiosInstance.delete(`${API_ROUTES.DELETECATEGORY}/${id}`)
+}
