@@ -1,4 +1,3 @@
-
 import { Field, ErrorMessage } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -12,7 +11,17 @@ function BaseInput({
   showPassword,
   required = false,
   togglePassword,
+  accept = ".jpg,.jpeg,.png,.webp",
+  setFieldValue,
+  setPreview,
 }) {
+  // Handle file input change manually
+  const handleFileChange = (e) => {
+    const file = e.currentTarget.files[0];
+    if (setFieldValue) setFieldValue(name, file);
+    if (file && setPreview) setPreview(URL.createObjectURL(file));
+  };
+
   return (
     <div className="mb-4">
       {label && (
@@ -21,32 +30,40 @@ function BaseInput({
           className="block text-sm mb-1.5 font-medium text-gray-600 leading-5 inter"
         >
           {label}
-          {required && <span className="text-red-500 ms-1">*</span>} 
+          {required && <span className="text-red-500 ms-1">*</span>}
         </label>
       )}
 
       <div className="relative">
-        <Field
-          id={id}
-          name={name}
-          type={type === "password" && showPassword ? "text" : type}
-          placeholder={placeholder}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
-        />
+        {/* Conditional rendering based on input type */}
+        {type === "file" ? (
+          <input
+            id={id}
+            name={name}
+            type="file"
+            accept={accept}
+            onChange={handleFileChange}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-black"
+          />
+        ) : (
+          <Field
+            id={id}
+            name={name}
+            type={type === "password" && showPassword ? "text" : type}
+            placeholder={placeholder}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
+          />
+        )}
 
         {/* Password toggle icon */}
-        {showToggle && (
+        {showToggle && type === "password" && (
           <button
             type="button"
             onClick={togglePassword}
             className="absolute inset-y-0 right-3 flex items-center text-gray-500"
             tabIndex={-1}
           >
-            {showPassword ? (
-              <FaEye/>
-            ) : (
-              <FaEyeSlash/>
-            )}
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
           </button>
         )}
       </div>

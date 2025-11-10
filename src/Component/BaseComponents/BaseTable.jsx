@@ -11,6 +11,8 @@ export default function BaseTable({
     fetchDataFn,
     searchPlaceholder = "Search...",
     rowsPerPageOptions = [5, 10],
+    pageKey = "page",
+    limitKey = "limit",
 }) {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
@@ -33,25 +35,51 @@ export default function BaseTable({
     const loadData = async () => {
         try {
             setLoading(true);
-            const res = await fetchDataFn({
+
+            console.log("Request Params:", {
                 search: debouncedSearch,
-                limit,
-                page,
+                [pageKey]: page,
+                [limitKey]: limit,
                 sortKey,
                 sortValue,
             });
 
-            const items =
-                res?.data?.users ||
-                res?.data?.orders ||
-                res?.data?.data ||
-                res?.data ||
-                [];
+            const resRaw = await fetchDataFn({
+                search: debouncedSearch,
+                [pageKey]: page,
+                [limitKey]: limit,
+                sortKey,
+                sortValue,
+            });
 
-            setData(items);
-            setTotalPages(res?.data?.totalPage || 1);
+            const res = resRaw && resRaw.data ? resRaw.data : resRaw;
+
+            if (Array.isArray(res)) {
+                setData(res);
+            } else if (Array.isArray(res?.data)) {
+                setData(res.data);
+            } else if (typeof res?.data === "object" && res?.data !== null) {
+                const arrayInsideData = Object.values(res.data).find(Array.isArray);
+                setData(arrayInsideData || []);
+            } else {
+                const arrayInsideRes = Object.values(res || {}).find(Array.isArray);
+                setData(arrayInsideRes || []);
+            }
+
+            const totalPage =
+                Number(res?.totalPage) ||
+                Number(res?.data?.totalPage) ||
+                Number(res?.total_pages) ||
+                Math.ceil(
+                    (Number(res?.totalItems || res?.data?.totalItems || 0) || 0) / limit
+                ) ||
+                1;
+
+            setTotalPages(totalPage);
         } catch (err) {
             console.error("Error fetching table data:", err);
+            setData([]);
+            setTotalPages(1);
         } finally {
             setLoading(false);
         }
