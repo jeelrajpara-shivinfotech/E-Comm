@@ -12,3 +12,14 @@ export const createCategory = async (formData) => {
   const response = await axiosInstance.post(API_ROUTES.CREATECATEGORY, formData);
   return response.data;
 };
+
+// File Upload
+export const fileUpload = async (formData) => {
+  const res = await axiosInstance.post(API_ROUTES.FILEUPLOAD, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return res.data;
+};

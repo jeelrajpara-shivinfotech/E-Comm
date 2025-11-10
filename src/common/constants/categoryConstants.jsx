@@ -60,10 +60,31 @@ export const categoryColumns = [
 
         <BaseActionButton
           icon={GoTrash}
-          onClick={() => console.log("Delete", row)}
+          onClick={() => handleDelete(row.id)}
           title="Delete"
         />
       </div>
     ),
   },
 ];
+
+export const createCategoryConstants = {
+  categoryName : "category_name",
+  categoryDescription : "category_description",
+  categoryImage : "category_image",
+  cancelButton : "Cancel",
+  savingText : "Saving...",
+  save : "Save",
+  file : "file"
+}
+
+export const createCategoryLabel = {
+  categoryLabelName : "Category Name",
+  categoryLabelDesc : "Category Description",
+  categoryLabelImage : "Category Image"
+}
+
+export const createCategoryPlaceholder = {
+  categoryNamePlaceholder : "Enter category name",
+  categoryDescPlaceholder : "Enter category description",
+}

@@ -1,31 +1,42 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import BaseInput from "../BaseComponents/BaseInput";
-import { createCategory } from "../../Api/categoryApis";
+import { createCategory, fileUpload } from "../../Api/categoryApis";
 import axiosInstance from "../../Api/axiosInstance";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { createCategoryConstants, createCategoryLabel, createCategoryPlaceholder } from "../../common/constants/categoryConstants";
+import BaseButton from "../BaseComponents/BaseButton";
+import { errorMessages } from "../../common/validation";
 
 const validationSchema = Yup.object({
-    category_name: Yup.string().required("Category name is required"),
-    category_description: Yup.string().required("Description is required"),
+    [createCategoryConstants.categoryName]: Yup.string()
+        .required(errorMessages.Required(createCategoryLabel.categoryLabelName)), 
+
+    [createCategoryConstants.categoryDescription]: Yup.string()
+        .required(errorMessages.Required(createCategoryLabel.categoryLabelDesc)), 
+
+    [createCategoryConstants.categoryImage]: Yup.mixed()
+        .test(
+            "fileSize",
+            errorMessages.CategoryImage, 
+            (value) => !value || (value && value.size <= 1024 * 1024) // <= 1 MB
+        ),
 });
 
 function AddCategoryForm({ onClose }) {
     const [loading, setLoading] = useState(false);
-    const [preview, setPreview] = useState(null); // preview image
+    const [preview, setPreview] = useState(null);
 
-    const uploadImage = async (files) => {
+    const uploadImage = async (file) => {
         const formData = new FormData();
-        formData.append("file", files);
-        const res = await axiosInstance.post("/fileUpload", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        console.log(res.data)
-        return res.data?.data?.[0];
+        formData.append("files", file);
+
+        const response = await fileUpload(formData);
+        console.log(response);
+        return response?.data?.[0];
     };
+
 
     const handleSubmit = async (values, { resetForm }) => {
         setLoading(true);
@@ -45,7 +56,7 @@ function AddCategoryForm({ onClose }) {
             onClose?.();
         } catch (error) {
             console.error("Error creating category:", error);
-            toast.error(error?.response?.data?.message || "Error creating category");
+            toast.error(error?.response?.data?.message);
         } finally {
             setLoading(false);
         }
@@ -54,49 +65,40 @@ function AddCategoryForm({ onClose }) {
     return (
         <Formik
             initialValues={{
-                category_name: "",
-                category_description: "",
-                category_image: null,
+                [createCategoryConstants.categoryName]: "",
+                [createCategoryConstants.categoryDescription]: "",
+                [createCategoryConstants.categoryImage]: null,
             }}
+
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
         >
             {({ setFieldValue, values }) => (
                 <Form className="flex flex-col gap-4">
                     <BaseInput
-                        id="category_name"
-                        name="category_name"
-                        label="Category Name"
-                        placeholder="Enter category name"
+                        id={createCategoryConstants.categoryName}
+                        name={createCategoryConstants.categoryName}
+                        label={createCategoryLabel.categoryLabelName}
+                        placeholder={createCategoryPlaceholder.categoryNamePlaceholder}
                         required
                     />
 
                     <BaseInput
-                        id="category_description"
-                        name="category_description"
-                        label="Description"
-                        placeholder="Enter category description"
+                        id={createCategoryConstants.categoryDescription}
+                        name={createCategoryConstants.categoryDescription}
+                        label={createCategoryLabel.categoryLabelDesc}
+                        placeholder={createCategoryPlaceholder.categoryDescPlaceholder}
                         required
                     />
 
-                    <div>
-                        <label className="block text-sm mb-1.5 font-medium text-gray-600 leading-5 inter">
-                            Category Image
-                        </label>
-                        <input
-                            type="file"
-                            name="category_image"
-                            accept=".jpg,.png,.jpeg,.webp"
-                            onChange={(e) => {
-                                const file = e.currentTarget.files[0];
-                                setFieldValue("category_image", file);
-                                if (file) {
-                                    setPreview(URL.createObjectURL(file));
-                                }
-                            }}
-                            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-black"
-                        />
-                    </div>
+                    <BaseInput
+                        id={createCategoryConstants.categoryImage}
+                        name={createCategoryConstants.categoryImage}
+                        type={createCategoryConstants.file}
+                        label={createCategoryLabel.categoryLabelImage}
+                        setFieldValue={setFieldValue}
+                        setPreview={setPreview}
+                    />
 
                     {preview && (
                         <img
@@ -107,21 +109,22 @@ function AddCategoryForm({ onClose }) {
                     )}
 
                     <div className="flex justify-end gap-2">
-                        <button
+                        <BaseButton
                             type="button"
+                            className="border border-gray-300 bg-white rounded-md"
+                            textColor="black"
                             onClick={onClose}
-                            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-                        >
-                            Cancel
-                        </button>
-                        <button
+                            icon={false}>
+                            {createCategoryConstants.cancelButton}
+                        </BaseButton>
+
+                        <BaseButton
                             type="submit"
                             disabled={loading}
-                            className={`px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 ${loading ? "opacity-70 cursor-not-allowed" : ""
-                                }`}
-                        >
-                            {loading ? "Saving..." : "Save"}
-                        </button>
+                            className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                            icon={false}>
+                            {loading ? createCategoryConstants.savingText : createCategoryConstants.save}
+                        </BaseButton>
                     </div>
                 </Form>
             )}

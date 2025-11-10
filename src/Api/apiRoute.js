@@ -7,5 +7,8 @@ export const API_ROUTES = {
   ORDER_STATUS_COUNT : '/order/piechart-data',
   ORDER_REPORT : '/order/orders-report',
   LISTOFCATEGORY : '/category/listOfCategories',
-  CREATECATEGORY : '/category/addCategory'
+  CREATECATEGORY : '/category/addCategory',
+  FILEUPLOAD : "/fileUpload",
+  UPDATECATEGORY : '/category/updateCategory',
+  DELETECATEGORY : '/category/deleteCategory',
 };

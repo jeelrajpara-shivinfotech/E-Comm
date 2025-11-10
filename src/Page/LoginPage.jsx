@@ -6,7 +6,7 @@ import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
 import { ROUTES } from "../Routes/RouteConstants";
 import { ArrowLeft, Underline } from "../assets/svg";
-import { errorMessages, regex } from "../common/Validations";
+import { errorMessages, regex } from "../common/validation";
 import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formField";
 import BaseLoader from "../Component/BaseComponents/BaseLoader";
@@ -19,22 +19,22 @@ export default function LoginPage() {
 
   const loginSchema = Yup.object({
     email: Yup.string()
-      .email(errorMessages.InvalidEmail)
+      .email(errorMessages.invalidEmail)
       .required(errorMessages.Required(fieldNames.Email)), 
 
     password: Yup.string()
       .required(errorMessages.Required(fieldNames.Password))
       .test(
         "password-strength",
-        errorMessages.PasswordComplexity,
+        errorMessages.passwordComplexity,
         (value) => {
           if (!value) return false;
           return (
             value.length >= 8 &&
-            regex.UpperCase.test(value) &&
+            regex.uppercase.test(value) &&
             /[a-z]/.test(value) &&
-            regex.Num.test(value) &&
-            regex.SpecialChar.test(value)
+            regex.num.test(value) &&
+            regex.specialChar.test(value)
           );
         }
       ),
