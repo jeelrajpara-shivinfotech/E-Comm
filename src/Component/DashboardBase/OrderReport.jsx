@@ -10,6 +10,8 @@ export default function OrderReport() {
       columns={orderReportColumns}
       fetchDataFn={getOrderReport}
       searchPlaceholder={placeHolderConst.orderPlaceHolder}
+      pageKey="page"
+      limitKey="limit"
     />
   );
 }
