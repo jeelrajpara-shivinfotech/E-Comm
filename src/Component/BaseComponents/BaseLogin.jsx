@@ -40,7 +40,7 @@ function BaseLogin({ handleSubmit, validationSchema }) {
           
 
           {/* Submit Button */}
-          <BaseButton type="submit" disabled={isSubmitting}>
+          <BaseButton type="submit" disabled={isSubmitting} className="w-full">
             {isSubmitting
               ? loginConstant.loggingButton
               : loginConstant.loginButton}

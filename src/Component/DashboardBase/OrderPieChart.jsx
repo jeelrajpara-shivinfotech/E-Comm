@@ -44,7 +44,7 @@ const OrderPieChart = () => {
         <select
           value={timeFrame}
           onChange={(e) => setTimeFrame(e.target.value)}
-          className="border border-gray-300 rounded-lg px-2 py-1 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="border border-gray-300 rounded-lg py-1 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           {pieChartTabs.map((tab) => (
             <option key={tab} value={tab}>

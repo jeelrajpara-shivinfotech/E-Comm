@@ -1,41 +1,63 @@
 import "flowbite";
-import logo from "../assets/logo.svg";
-import iconText from "../assets/logo-text.svg";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { SideBarArrow } from "../assets/svg";
+import logoDash from "../assets/login-logo.png";
+import userAvatar from "../assets/avatar.webp";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { sideBarLinks } from "../common/constants/SideBarConstants";
 import { titleConst, titles } from "../common/constants/routeConsts";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import BaseButton from "../Component/BaseComponents/BaseButton";
+import { initFlowbite } from "flowbite";
+import { SideBarArrow } from "../assets/svg";
+
 const DashboardLayout = () => {
   const location = useLocation();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const path = location.pathname;
     const title = titles[path] || titleConst.ecomm;
-    document.title = `${title} /${titleConst.ecomm}`;
+    document.title = `${title} / ${titleConst.ecomm}`;
   }, [location]);
+
+  useEffect(() => {
+    initFlowbite();
+  }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSignOut = () => {
+    navigate("/");
+    console.log("User signed out");
+  };
+
+  // Fix Flowbite sidebar toggle not working on first load
+  useEffect(() => {
+    import("flowbite");
+  }, []);
+
   return (
     <>
-      <button
-        data-drawer-target="default-sidebar"
-        data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar"
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-      >
-        <span className="sr-only">Open sidebar</span>
-        <SideBarArrow />
-      </button>
-
+      {/* SIDEBAR */}
       <aside
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full md:translate-x-0 bg-white shadow-md"
         aria-label="Sidebar"
       >
         <div className="h-full flex flex-col px-8 py-6 overflow-y-auto">
-          <Link to="/" className="flex items-center space-x-3 mb-8">
-            <img src={logo} alt="logo" className="h-8" />
-            <img src={iconText} alt="text" className="h-5" />
-          </Link>
+          <div className="flex items-center space-x-3 mb-8">
+            <img src={logoDash} alt="logo" className="" />
+          </div>
 
           <nav className="flex-1 space-y-1">
             {sideBarLinks.map(({ id, label, icon: Icon, path }) => (
@@ -43,8 +65,8 @@ const DashboardLayout = () => {
                 key={id}
                 to={path}
                 className={`flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ${location.pathname === path
-                    ? "bg-blue-50 text-blue-600 font-medium"
-                    : ""
+                  ? "bg-blue-50 text-blue-600 font-medium"
+                  : ""
                   }`}
               >
                 <Icon className="w-5 h-5 mr-3" />
@@ -55,12 +77,55 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      <main className="md:ml-80 bg-gray-50 min-h-screen p-8 shadow-sm border-l-2 border-gray-100">
-        <div>
+      {/* MAIN CONTENT */}
+      <main className="md:ml-80 bg-gray-50 min-h-screen shadow-sm border-l-2 border-gray-100">
+        <nav className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-4">
+            <button
+              data-drawer-target="default-sidebar"
+              data-drawer-toggle="default-sidebar"
+              aria-controls="default-sidebar"
+              type="button"
+              className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            >
+              <span className="sr-only">Open sidebar</span>
+              <SideBarArrow />
+            </button>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                className="focus:outline-none"
+              >
+                <img
+                  src={userAvatar}
+                  alt="User avatar"
+                  className="w-9 h-9 rounded-full border border-gray-200"
+                />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md py-2 border border-gray-100 z-50">
+                  <BaseButton
+                    onClick={handleSignOut}
+                    icon={false}
+                    className="w-full text-left px-4 py-2 bg-transparent text-black hover:bg-gray-50"
+                    textColor="black"
+                  >
+                    Sign Out
+                  </BaseButton>
+                </div>
+              )}
+            </div>
+          </div>
+        </nav>
+
+        {/* MAIN PAGE CONTENT */}
+        <div className="px-8">
           <Outlet />
         </div>
       </main>
-
     </>
   );
 };

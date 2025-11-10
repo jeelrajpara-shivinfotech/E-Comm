@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.jpg";
 import iconText from "../assets/logo-text.svg";
 import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
 import { ROUTES } from "../Routes/RouteConstants";
-import { ArrowLeft, Underline } from "../assets/svg";
+import { Underline } from "../assets/svg";
 import { errorMessages, regex } from "../common/validation";
 import * as Yup from "yup";
 import { fieldNames } from "../common/constants/formField";
@@ -20,26 +20,32 @@ export default function LoginPage() {
   const loginSchema = Yup.object({
     email: Yup.string()
       .email(errorMessages.invalidEmail)
-      .required(errorMessages.Required(fieldNames.Email)), 
+      .required(errorMessages.Required(fieldNames.Email)),
 
     password: Yup.string()
       .required(errorMessages.Required(fieldNames.Password))
+      .min(8, errorMessages.minLength)
       .test(
-        "password-strength",
-        errorMessages.passwordComplexity,
-        (value) => {
-          if (!value) return false;
-          return (
-            value.length >= 8 &&
-            regex.uppercase.test(value) &&
-            /[a-z]/.test(value) &&
-            regex.num.test(value) &&
-            regex.specialChar.test(value)
-          );
-        }
+        "uppercase",
+        errorMessages.uppercase,
+        (value) => !value || regex.uppercase.test(value)
+      )
+      .test(
+        "lowercase",
+        errorMessages.lowercase,
+        (value) => !value || regex.lowercase.test(value)
+      )
+      .test(
+        "number",
+        errorMessages.number,
+        (value) => !value || regex.num.test(value)
+      )
+      .test(
+        "specialChar",
+        errorMessages.specialChar,
+        (value) => !value || regex.specialChar.test(value)
       ),
   });
-
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setLoading(true);
@@ -62,53 +68,32 @@ export default function LoginPage() {
       setLoading(false);
     }
     useEffect(() => {
-        document.title = "My Dynamic Page Title";
-      }, []); 
+      document.title = "My Dynamic Page Title";
+    }, []);
   };
 
   return (
     <>
       {loading && <BaseLoader />}
 
-      {/* MOBILE BACK BUTTON */}
-      <Link
-        to="/"
-        className="sticky start-0 top-0 z-20 flex items-center justify-center bg-blue-600 p-3.5 text-sm font-medium text-white md:p-4 lg:hidden lexand"
-      >
-        <ArrowLeft />
-        <p className="ms-1 lexend !important">{loginConstant.backToHome}</p>
-      </Link>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="relative flex w-full justify-center lg:max-w-xl">
+          <div className="w-full max-w-lg lg:px-3 2xl:max-w-none 2xl:px-20">
+            <div className="mb-2 text-center max-w-md mx-auto">
+              <div className="mb-3 inline-flex items-center justify-center">
+                <img src={logo} alt="logo" width={100} />
+              </div>
 
-      {/* MAIN CONTAINER */}
-      <div className="justify-between gap-x-8 lg:flex px-10 lg:py-6 xl:gap-x-10 items-stretch overflow-hidden">
-        {/* LEFT SECTION */}
-        <div className="relative flex w-full justify-center lg:max-w-xl 2xl:justify-end 2xl:pe-24">
-          <div className="w-full max-w-md lg:ps-3 2xl:max-w-none 2xl:ps-20 ">
-            <Link
-              to="/"
-              className="absolute -top-5 start-0 hidden py-8 text-gray-500 hover:text-gray-700 lg:flex lg:items-center 2xl:-top-7 2xl:ps-20 3xl:left-6"
-            >
-              <ArrowLeft color="gray" />
-              <p className="ms-1 font-medium lexend text-sm">{loginConstant.backToHome}</p>
-            </Link>
-
-            {/* LOGO + HEADER */}
-            <div className="mb-2 lg:text-left mt-20 text-center max-w-md">
-              <Link to="/" className="mb-3 inline-flex items-center">
-                <img src={logo} alt="logo" width={61} height={38} className="" />
-                <img src={iconText} alt="text" height={5} width={99} className="ml-1 h-4" />
-              </Link>
-
-              <h2 className="font-bold mb-5 text-[26px] leading-snug md:text-3xl md:leading-normal lg:mb-7 lg:pe-16 lg:text-[28px] xl:text-3xl 2xl:pe-8 2xl:text-4xl lexend ">
+              <h2 className="font-bold mb-5 text-[26px] leading-snug md:text-3xl md:leading-normal lg:mb-7 lg:text-[28px] xl:text-3xl 2xl:text-4xl lexend">
                 {loginConstant.welcomeHeadingPart1}{" "}
-                <span className="relative inline-block ">
+                <span className="relative inline-block">
                   {loginConstant.welcomeHeadingPart2}
                   <Underline />
                 </span>{" "}
                 {loginConstant.welcomeHeadingPart3}
               </h2>
 
-              <p className="text-[14px] pt-5 font-normal leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14 inter">
+              <p className="text-[14px] pt-2 font-normal leading-[1.85] text-gray-700 md:leading-loose inter">
                 {loginConstant.welcomeParagraph}
               </p>
             </div>
@@ -117,21 +102,8 @@ export default function LoginPage() {
             <BaseLogin handleSubmit={handleSubmit} validationSchema={loginSchema} />
           </div>
         </div>
-
-        {/* RIGHT SIDE IMAGE */}
-        <div className="hidden rounded-[20px] dark:bg-gray-100/40 lg:flex lg:items-center lg:justify-center px-14 ">
-          <div className="pb-8 text-center xl:pt-10 lg:pt-10 ">
-            <div className=" mb-10 pt-2">
-              <h2 className="text-3xl mb-3 font-semibold lg:text-[26px] 2xl:text-[32px] lexend leading-normal!">
-                {loginConstant.rightHeading}
-              </h2>
-              <p className="text-gray-700 leading-[1.85] md:leading-loose 2xl:px-6 inter text-[15px]">
-                {loginConstant.rightParagraph}
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
     </>
   );
 }

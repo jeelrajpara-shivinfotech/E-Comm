@@ -16,7 +16,7 @@ const BaseSelect = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className={`rounded-md px-2 py-1 bg-gray-200 text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 ${className}`}
+        className={`rounded-md py-1 bg-gray-200 text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 ${className}`}
       >
         {placeholder && (
           <option value="" disabled hidden>

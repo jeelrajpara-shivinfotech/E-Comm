@@ -4,6 +4,7 @@ import { IoIosArrowBack, IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from 
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 import BaseSelect from "./BaseSelect";
 import { tableConstant } from "../../common/constants/tableConstant";
+import BaseSearch from "./BaseSearch";
 
 export default function BaseTable({
     title,
@@ -100,16 +101,11 @@ export default function BaseTable({
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 py-4">
                 <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
 
-                <div className="relative w-full md:w-64">
-                    <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder={searchPlaceholder}
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="w-full bg-white border border-gray-300 text-gray-700 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+                <BaseSearch
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    searchPlaceholder={searchPlaceholder}
+                />
             </div>
 
             {/* Table */}
@@ -181,7 +177,7 @@ export default function BaseTable({
                             setPage(1);
                         }}
                         options={rowsPerPageOptions.map((num) => ({ label: num, value: num }))}
-                        className="w-20 bg-gray-100"
+                        className="w-12 bg-gray-100"
                     />
                 </div>
 
@@ -198,7 +194,7 @@ export default function BaseTable({
                             className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
                 ${page === 1
                                     ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100     cursor-pointer shadow-sm transition"}`
                             }
                         >
                             <BiChevronsLeft size={18} />
@@ -212,7 +208,7 @@ export default function BaseTable({
                             className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
                 ${page === 1
                                     ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 cursor-pointer shadow-sm transition"}`
                             }
                         >
                             <IoIosArrowBack size={18} />
@@ -226,7 +222,7 @@ export default function BaseTable({
                             className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
                 ${page === totalPages
                                     ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 cursor-pointer shadow-sm transition"}`
                             }
                         >
                             <IoIosArrowForward size={18} />
@@ -240,7 +236,7 @@ export default function BaseTable({
                             className={`w-9 h-9 flex items-center justify-center rounded-lg border text-gray-700 
                 ${page === totalPages
                                     ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition"}`
+                                    : "bg-white border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm transition cursor-pointer"}`
                             }
                         >
                             <BiChevronsRight size={18} />
