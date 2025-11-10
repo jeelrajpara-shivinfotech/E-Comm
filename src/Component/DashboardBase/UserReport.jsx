@@ -9,6 +9,8 @@ export default function UserReport() {
       columns={userReportColumn}
       fetchDataFn={getUserReport}
       searchPlaceholder={placeHolderConst.userPlaceHolder}
+      pageKey="page"
+      limitKey="limit"
     />
   );
 }
