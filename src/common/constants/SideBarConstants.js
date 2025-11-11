@@ -5,27 +5,27 @@ import { ROUTES } from "../../Routes/RouteConstants";
 export const sideBarLinks = [
   {
     id: 1,
-    label: "E-commerce",
+    label: "Dashboard",
     icon: FaCartShopping,
     path: ROUTES.DASHBOARD,
   },
-  {
-    id: 2,
-    label: "Category",
-    icon: HiOutlineUser,
-    path: ROUTES.CATEGORY,
-  },
-  {
-    id: 3,
-    label: "Product",
-    icon: HiOutlineChartBar,
-    path: ROUTES.PRODUCT,
-  },
-  {
-    id: 4,
-    label: "Report",
-    icon: HiOutlineCog,
-    path: ROUTES.REPORT,
-  },
+  // {
+  //   id: 2,
+  //   label: "Category",
+  //   icon: HiOutlineUser,
+  //   path: ROUTES.CATEGORY,
+  // },
+  // {
+  //   id: 3,
+  //   label: "Product",
+  //   icon: HiOutlineChartBar,
+  //   path: ROUTES.PRODUCT,
+  // },
+  // {
+  //   id: 4,
+  //   label: "Report",
+  //   icon: HiOutlineCog,
+  //   path: ROUTES.REPORT,
+  // },
 ];
 

@@ -44,7 +44,9 @@ export const dashboardHeaders = {
   ordersOverView : "Orders Overview",
   highestPurchaseOrder : "Highest Purchase Order",
   userReport : "User Report", 
-  orderReport : "Order Report"
+  orderReport : "Order Report",
+  noUserFound : "No user found",
+  noOrderFound : "No order found"
 }
 
 export const dashboardTableHeaders = {
@@ -79,4 +81,9 @@ export const placeHolderConst = {
   userPlaceHolder : "Search by name or email...",
   orderPlaceHolder : "Search by order or customer...",
   categoryPlaceHolder : "Search by category name"
+}
+
+export const dashboardMainConstants = {
+  openSideBar : "Open sidebar",
+  signOut : "Sign Out"
 }
