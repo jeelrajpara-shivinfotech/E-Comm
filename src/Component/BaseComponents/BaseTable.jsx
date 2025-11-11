@@ -5,6 +5,7 @@ import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 import BaseSelect from "./BaseSelect";
 import { tableConstant } from "../../common/constants/tableConstant";
 import BaseSearch from "./BaseSearch";
+import BaseLoader from "./BaseLoader";
 
 export default function BaseTable({
     title,
@@ -141,8 +142,8 @@ export default function BaseTable({
                     <tbody className="divide-y divide-gray-100">
                         {loading ? (
                             <tr>
-                                <td colSpan={columns.length} className="text-center py-6 text-gray-500">
-                                    {tableConstant.loading}
+                                <td colSpan={columns.length} className="py-10">
+                                    <BaseLoader overlay={false}/>
                                 </td>
                             </tr>
                         ) : data.length > 0 ? (

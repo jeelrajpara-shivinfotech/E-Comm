@@ -80,3 +80,8 @@ export const placeHolderConst = {
   orderPlaceHolder : "Search by order or customer...",
   categoryPlaceHolder : "Search by category name"
 }
+
+export const dashboardMainConstants = {
+  openSideBar : "Open sidebar",
+  signOut : "Sign Out"
+}

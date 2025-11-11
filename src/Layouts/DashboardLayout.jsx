@@ -8,6 +8,7 @@ import { useEffect, useState, useRef } from "react";
 import BaseButton from "../Component/BaseComponents/BaseButton";
 import { initFlowbite } from "flowbite";
 import { SideBarArrow } from "../assets/svg";
+import { dashboardMainConstants } from "../common/constants/dashboardConstants";
 
 const DashboardLayout = () => {
   const location = useLocation();
@@ -25,7 +26,6 @@ const DashboardLayout = () => {
     initFlowbite();
   }, [location]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -38,10 +38,8 @@ const DashboardLayout = () => {
 
   const handleSignOut = () => {
     navigate("/");
-    console.log("User signed out");
   };
 
-  // Fix Flowbite sidebar toggle not working on first load
   useEffect(() => {
     import("flowbite");
   }, []);
@@ -79,7 +77,7 @@ const DashboardLayout = () => {
 
       {/* MAIN CONTENT */}
       <main className="md:ml-80 bg-gray-50 min-h-screen shadow-sm border-l-2 border-gray-100">
-        <nav className="flex items-center justify-between px-4 py-3">
+        <nav className="flex items-center justify-between lg:px-8 px-4">
           <div className="flex items-center gap-4">
             <button
               data-drawer-target="default-sidebar"
@@ -88,7 +86,7 @@ const DashboardLayout = () => {
               type="button"
               className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             >
-              <span className="sr-only">Open sidebar</span>
+              <span className="sr-only">{dashboardMainConstants.openSideBar}</span>
               <SideBarArrow />
             </button>
           </div>
@@ -96,7 +94,7 @@ const DashboardLayout = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
-                className="focus:outline-none"
+                className="inline-flex items-center cursor-pointer py-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg  focus:outline-none"
               >
                 <img
                   src={userAvatar}
@@ -106,14 +104,14 @@ const DashboardLayout = () => {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md py-2 border border-gray-100 z-50">
+                <div className="absolute right-0 w-48 bg-white rounded-lg shadow-md py-2 border border-gray-100 z-50">
                   <BaseButton
                     onClick={handleSignOut}
                     icon={false}
                     className="w-full text-left px-4 py-2 bg-transparent text-black hover:bg-gray-50"
                     textColor="black"
                   >
-                    Sign Out
+                    {dashboardMainConstants.signOut}
                   </BaseButton>
                 </div>
               )}
@@ -122,7 +120,7 @@ const DashboardLayout = () => {
         </nav>
 
         {/* MAIN PAGE CONTENT */}
-        <div className="px-8">
+        <div className="px-2">
           <Outlet />
         </div>
       </main>
