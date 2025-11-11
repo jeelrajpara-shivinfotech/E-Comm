@@ -1,4 +1,4 @@
-import React from "react";
+import { RxCross2 } from "react-icons/rx";
 
 export default function BaseModal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
@@ -14,9 +14,9 @@ export default function BaseModal({ isOpen, onClose, title, children }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+          className="absolute top-3 right-3 cursor-pointer text-gray-500 hover:text-gray-700"
         >
-          ✕
+          <RxCross2/>
         </button>
       </div>
     </div>
