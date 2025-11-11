@@ -1,5 +1,7 @@
 import { Field, ErrorMessage } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState, useRef } from "react";
+import BaseButton from "./BaseButton";
 
 function BaseInput({
   id,
@@ -15,11 +17,19 @@ function BaseInput({
   setFieldValue,
   setPreview,
 }) {
+  const fileInputRef = useRef(null);
+  const [fileName, setFileName] = useState("");
+
   // Handle file input change manually
   const handleFileChange = (e) => {
     const file = e.currentTarget.files[0];
+    setFileName(file ? file.name : "");
     if (setFieldValue) setFieldValue(name, file);
     if (file && setPreview) setPreview(URL.createObjectURL(file));
+  };
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -37,14 +47,32 @@ function BaseInput({
       <div className="relative">
         {/* Conditional rendering based on input type */}
         {type === "file" ? (
-          <input
-            id={id}
-            name={name}
-            type="file"
-            accept={accept}
-            onChange={handleFileChange}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-black"
-          />
+          <div className="flex items-center gap-4 cursor-pointer bg-white rounded-md border border-gray-300">
+            {/* Hidden file input */}
+            <input
+              id={id}
+              ref={fileInputRef}
+              name={name}
+              type="file"
+              accept={accept}
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            
+            {/* Custom file button */}
+            <BaseButton
+            type="button"
+            onClick={handleFileButtonClick}
+            className="bg-gray-200 px-4"
+            textColor="text-gray-700"
+            icon={false}
+            >
+              Choose File
+            </BaseButton>
+            <span className="text-gray-500 text-sm">
+              {fileName || "No file chosen"}
+            </span>
+          </div>
         ) : (
           <Field
             id={id}

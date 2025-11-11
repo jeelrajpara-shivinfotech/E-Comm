@@ -31,11 +31,11 @@ function ViewCategory({ id }) {
         <div className="py-2 flex flex-col gap-2">
             <div>
                 <div className="text-lg lexend mb-2">{createCategoryLabel.categoryLabelName}</div>
-                <div className="border-gray-200 shadow-sm px-2 py-1 rounded-md bg-gray-100">{category.category_name}</div>
+                <div className="border-gray-200 shadow-sm px-2 py-1 rounded-md bg-gray-100 wrap-break-word">{category.category_name}</div>
             </div>
             <div>
                 <div className="text-lg lexend mb-2">{createCategoryLabel.categoryLabelDesc}</div>
-                <div className="border-gray-200 shadow-sm px-2 py-1 rounded-md bg-gray-100">{category.description}</div>
+                <div className="border-gray-200 shadow-sm px-2 py-1 rounded-md bg-gray-100 wrap-break-word">{category.description}</div>
             </div>
             <div>
                 <div className="text-lg lexend mb-2">{createCategoryLabel.categoryLabelImage}</div>
@@ -43,13 +43,13 @@ function ViewCategory({ id }) {
                     <img
                         src={`${import.meta.env.VITE_BACKEND_BASE_IMAGE}/${category.category_image}`}
                         alt={category.category_name}
-                        className="w-32 h-32 object-cover rounded-lg "
+                        className="w-32 h-32 object-cover rounded-lg border-gray-200 shadow-sm"
                     />
                 ) : (
                     <img
                         src={fallbackImage}
                         alt="category"
-                        className="w-32 h-32 object-cover rounded-lg border"
+                        className="w-32 h-32 object-cover rounded-lg border-gray-200 shadow-sm"
                     />
                 )
                 }

@@ -5,12 +5,12 @@ import { FaEye } from "react-icons/fa";
 import { baseImageUrl } from "./config";
 
 export const categoryHeaders = {
-  list: "Category List",
-  details: "Category Details",
-  add: "Add Category",
-  edit: "Edit Category",
-  delete : "Delete Confirmation",
-  noCategoryFound: "No Category Found",
+  list: "Category list",
+  details: "Category details",
+  add: "Add category",
+  edit: "Edit category",
+  delete: "Delete confirmation",
+  noCategoryFound: "No category found",
 };
 
 export const categoryColumns = (handleDelete, handleEdit, handleView) => [
@@ -37,15 +37,37 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
       );
     },
   },
-
   {
     key: "category_name",
     label: "Category Name",
   },
   {
     key: "description",
-    label: "Description",
+    label: "description",
+    render: (value) => {
+      const shouldTruncate = value?.length > 10;
+      const truncatedText = shouldTruncate ? value.slice(0 , 10) + '....' : value
+
+      return (
+        <div className="relative group">
+          <span
+            className="block truncate cursor-pointer text-gray-800 transition">
+            {truncatedText}
+          </span>
+          {shouldTruncate && (
+          <div className="absolute top-full left-0 mt-2 hidden group-hover:block z-50">
+            <div className="bg-gray-200 text-gray-900 text-xs rounded-md py-2 px-3 shadow-md max-w-xs w-max whitespace-normal wrap-break-word">
+              {value}
+              {/* small tooltip arrow pointing up */}
+              <div className="absolute bottom-full left-4 w-0 h-0 border-4 border-transparent border-b-gray-200"></div>
+            </div>
+          </div>
+        )}
+        </div>
+      );
+    },
   },
+
   {
     key: "createdAt",
     label: "Created At",
@@ -61,47 +83,47 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
     label: "Actions",
     render: (_, row) => (
       <div className="flex gap-3">
-
-        <BaseActionButton icon={FaEye}
+        <BaseActionButton
+          icon={FaEye}
           onClick={() => handleView(row)}
-          title="Preview" />
-
-        <BaseActionButton icon={GoPencil}
+          title="Preview"
+        />
+        <BaseActionButton
+          icon={GoPencil}
           onClick={() => handleEdit(row)}
           title="Edit"
         />
-
-          <BaseActionButton
-            icon={GoTrash}
-            onClick={() => handleDelete(row.id)}
-            title="Delete"
-          />
+        <BaseActionButton
+          icon={GoTrash}
+          onClick={() => handleDelete(row.id)}
+          title="Delete"
+        />
       </div>
     ),
   },
 ];
 
 export const createCategoryConstants = {
-  categoryName : "category_name",
-  categoryDescription : "category_description",
-  categoryImage : "category_image",
-  cancelButton : "Cancel",
-  savingText : "Saving...",
-  save : "Save",
-  file : "file",
-  updateButton : "Update",
-  deleteButton : "Delete",
-  deletingButton : "Deleting..",
-  confirmationText : "Are you sure you want to delete this record?"
+  categoryName: "category_name",
+  categoryDescription: "category_description",
+  categoryImage: "category_image",
+  cancelButton: "Cancel",
+  savingText: "Saving...",
+  save: "Save",
+  file: "file",
+  updateButton: "Update",
+  deleteButton: "Delete",
+  deletingButton: "Deleting..",
+  confirmationText: "Are you sure you want to delete this record?"
 }
 
 export const createCategoryLabel = {
-  categoryLabelName : "Category Name",
-  categoryLabelDesc : "Category Description",
-  categoryLabelImage : "Category Image"
+  categoryLabelName: "Category name",
+  categoryLabelDesc: "Category description",
+  categoryLabelImage: "Category image"
 }
 
 export const createCategoryPlaceholder = {
-  categoryNamePlaceholder : "Enter category name",
-  categoryDescPlaceholder : "Enter category description",
+  categoryNamePlaceholder: "Enter category name",
+  categoryDescPlaceholder: "Enter category description",
 }
