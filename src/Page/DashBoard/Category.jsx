@@ -43,7 +43,7 @@ function Category() {
 
   return (
     <div className="md:p-6">
-      <div className="flex justify-between items-center flex-wrap mb-5 ">
+      <div className="flex justify-between items-center flex-wrap gap-3 mb-5 ">
         <h2 className="text-2xl font-bold lexend">{categoryHeaders.list}</h2>
         <div className="w-auto">
           <BaseButton
