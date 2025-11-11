@@ -10,7 +10,7 @@ const BaseSearch = ({ value, onChange, searchPlaceholder = "Search..." }) => {
         placeholder={searchPlaceholder}
         value={value}
         onChange={onChange}
-        className="w-full bg-white border border-gray-300 text-gray-700 rounded-lg pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full bg-white border border-gray-300 text-gray-700 rounded-lg pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 inter"
       />
 
       {value && (

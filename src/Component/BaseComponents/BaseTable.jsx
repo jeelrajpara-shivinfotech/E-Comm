@@ -15,6 +15,7 @@ export default function BaseTable({
     rowsPerPageOptions = [5, 10],
     pageKey = "page",
     limitKey = "limit",
+    noDataFound
 }) {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
@@ -37,15 +38,6 @@ export default function BaseTable({
     const loadData = async () => {
         try {
             setLoading(true);
-
-            console.log("Request Params:", {
-                search: debouncedSearch,
-                [pageKey]: page,
-                [limitKey]: limit,
-                sortKey,
-                sortValue,
-            });
-
             const resRaw = await fetchDataFn({
                 search: debouncedSearch,
                 [pageKey]: page,
@@ -100,7 +92,7 @@ export default function BaseTable({
         <div className="bg-white rounded-xl border border-gray-200">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 py-4">
-                <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+                <h2 className=" text-gray-900 lexend text-base font-semibold sm:text-lg whitespace-nowrap">{title}</h2>
 
                 <BaseSearch
                     value={search}
@@ -112,7 +104,7 @@ export default function BaseTable({
             {/* Table */}
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm text-gray-700">
-                    <thead className="bg-gray-100 border-b border-gray-200 text-xs uppercase text-gray-600 font-semibold">
+                    <thead className="bg-gray-100 border-b border-gray-200 text-xs uppercase text-gray-600 font-semibold inter">
                         <tr>
                             {columns.map((col) => (
                                 <th
@@ -139,7 +131,7 @@ export default function BaseTable({
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-gray-100 inter">
                         {loading ? (
                             <tr>
                                 <td colSpan={columns.length} className="py-10">
@@ -159,7 +151,7 @@ export default function BaseTable({
                         ) : (
                             <tr>
                                 <td colSpan={columns.length} className="text-center text-gray-500 py-6 text-sm">
-                                    {tableConstant.noDataFound}
+                                   {noDataFound}
                                 </td>
                             </tr>
                         )}
@@ -168,7 +160,7 @@ export default function BaseTable({
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 flex-wrap gap-2">
+            <div className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 flex-wrap gap-2 inter">
                 <div className="flex items-center gap-2 ">
                     <span>{tableConstant.rowsPerPage}</span>
                     <BaseSelect
@@ -178,11 +170,11 @@ export default function BaseTable({
                             setPage(1);
                         }}
                         options={rowsPerPageOptions.map((num) => ({ label: num, value: num }))}
-                        className="w-12 bg-gray-100"
+                        className=""
                     />
                 </div>
 
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-2 flex-wrap inter">
                     <span>
                         {tableConstant.page} {page} {tableConstant.of} {totalPages}
                     </span>

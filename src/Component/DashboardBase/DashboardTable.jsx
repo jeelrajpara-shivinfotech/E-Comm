@@ -41,7 +41,7 @@ const DashboardBarChart = () => {
 
   return (
     <div className="bg-white p-4 shadow-sm rounded-2xl relative h-full">
-      <h2 className="text-lg font-semibold mb-4">
+      <h2 className="mb-4 text-base font-semibold sm:text-lg whitespace-nowrap lexend">
         {dashboardHeaders.highestPurchaseOrder}
       </h2>
 

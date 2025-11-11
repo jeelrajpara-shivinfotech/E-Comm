@@ -62,7 +62,7 @@ const DashboardLayout = () => {
               <Link
                 key={id}
                 to={path}
-                className={`flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ${location.pathname === path
+                className={`flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 lexend${location.pathname === path
                   ? "bg-blue-50 text-blue-600 font-medium"
                   : ""
                   }`}

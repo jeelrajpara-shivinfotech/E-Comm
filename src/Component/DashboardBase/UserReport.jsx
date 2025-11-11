@@ -11,6 +11,7 @@ export default function UserReport() {
       searchPlaceholder={placeHolderConst.userPlaceHolder}
       pageKey="page"
       limitKey="limit"
+      noDataFound={dashboardHeaders.noUserFound}
     />
   );
 }

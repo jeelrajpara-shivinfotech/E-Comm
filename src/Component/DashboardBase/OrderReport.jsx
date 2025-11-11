@@ -12,6 +12,7 @@ export default function OrderReport() {
       searchPlaceholder={placeHolderConst.orderPlaceHolder}
       pageKey="page"
       limitKey="limit"
+      noDataFound={dashboardHeaders.noOrderFound}
     />
   );
 }
