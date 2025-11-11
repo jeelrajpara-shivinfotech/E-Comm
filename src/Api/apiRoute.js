@@ -11,4 +11,5 @@ export const API_ROUTES = {
   FILEUPLOAD : "/fileUpload",
   UPDATECATEGORY : '/category/updateCategory',
   DELETECATEGORY : '/category/deleteCategory',
+  VIEWCATEGORY : '/category/viewCategory'
 };

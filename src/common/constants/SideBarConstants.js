@@ -9,12 +9,12 @@ export const sideBarLinks = [
     icon: FaCartShopping,
     path: ROUTES.DASHBOARD,
   },
-  // {
-  //   id: 2,
-  //   label: "Category",
-  //   icon: HiOutlineUser,
-  //   path: ROUTES.CATEGORY,
-  // },
+  {
+    id: 2,
+    label: "Category",
+    icon: HiOutlineUser,
+    path: ROUTES.CATEGORY,
+  },
   // {
   //   id: 3,
   //   label: "Product",

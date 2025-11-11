@@ -1,15 +1,17 @@
-import { RiDeleteBin6Line } from "react-icons/ri";
+import fallbackImage from "../../assets/bags.webp"
 import { GoPencil, GoTrash } from "react-icons/go";
 import BaseActionButton from "../../Component/BaseComponents/BaseActionButton";
+import { FaEye } from "react-icons/fa";
 
 export const categoryHeaders = {
   list: "Category List",
   details: "Category Details",
   add: "Add Category",
   edit: "Edit Category",
+  noCategoryFound: "No Category Found",
 };
 
-export const categoryColumns = (handleDelete) => [
+export const categoryColumns = (handleDelete, handleEdit, handleView) => [
   {
     key: "id",
     label: "ID",
@@ -25,7 +27,11 @@ export const categoryColumns = (handleDelete) => [
           className="w-10 h-10 rounded-lg object-cover"
         />
       ) : (
-        <span className="text-gray-400 italic">No Image</span>
+        <img
+          src={fallbackImage}
+          alt="category"
+          className="w-10 h-10 rounded-lg object-cover"
+        />
       );
     },
   },
@@ -53,16 +59,21 @@ export const categoryColumns = (handleDelete) => [
     label: "Actions",
     render: (_, row) => (
       <div className="flex gap-3">
+
+        <BaseActionButton icon={FaEye}
+          onClick={() => handleView(row)}
+          title="Preview" />
+
         <BaseActionButton icon={GoPencil}
-          onClick={() => console.log("Edit", row)}
+          onClick={() => handleEdit(row)}
           title="Edit"
         />
 
-        <BaseActionButton
-          icon={GoTrash}
-          onClick={() => handleDelete(row.id)}
-          title="Delete"
-        />
+          <BaseActionButton
+            icon={GoTrash}
+            onClick={() => handleDelete(row.id)}
+            title="Delete"
+          />
       </div>
     ),
   },
@@ -75,7 +86,8 @@ export const createCategoryConstants = {
   cancelButton : "Cancel",
   savingText : "Saving...",
   save : "Save",
-  file : "file"
+  file : "file",
+  updateButton : "Update",
 }
 
 export const createCategoryLabel = {

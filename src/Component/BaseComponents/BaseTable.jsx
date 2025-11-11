@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import { IoIosArrowBack, IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 import BaseSelect from "./BaseSelect";
@@ -7,7 +6,7 @@ import { tableConstant } from "../../common/constants/tableConstant";
 import BaseSearch from "./BaseSearch";
 import BaseLoader from "./BaseLoader";
 
-export default function BaseTable({
+const BaseTable = forwardRef(({
     title,
     columns,
     fetchDataFn,
@@ -16,7 +15,7 @@ export default function BaseTable({
     pageKey = "page",
     limitKey = "limit",
     noDataFound
-}) {
+}, ref) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -34,6 +33,12 @@ export default function BaseTable({
         }, 400);
         return () => clearTimeout(handler);
     }, [search]);
+
+    useImperativeHandle(ref, () => ({
+        refresh: () => {
+            loadData();
+        },
+    }));
 
     const loadData = async () => {
         try {
@@ -151,7 +156,7 @@ export default function BaseTable({
                         ) : (
                             <tr>
                                 <td colSpan={columns.length} className="text-center text-gray-500 py-6 text-sm">
-                                   {noDataFound}
+                                    {noDataFound}
                                 </td>
                             </tr>
                         )}
@@ -239,4 +244,5 @@ export default function BaseTable({
             </div>
         </div>
     );
-}
+})
+export default BaseTable;

@@ -26,5 +26,18 @@ export const fileUpload = async (formData) => {
 
 // Delete upload
 export const deleteCategory = async(id) => {
-    const res = await axiosInstance.delete(`${API_ROUTES.DELETECATEGORY}/${id}`)
+  const res = await axiosInstance.delete(`${API_ROUTES.DELETECATEGORY}/${id}`)
+  return res.data;
+}
+
+// Edit category
+export const updateCategory = async(id , formData) => {
+  const res = await axiosInstance.put(`${API_ROUTES.UPDATECATEGORY}/${id}` , formData);
+  return res.data;
+} 
+
+// View Category
+export const viewCategory = async(id) => {
+  const res = await axiosInstance.get(`${API_ROUTES.VIEWCATEGORY}/${id}`);
+  return res.data;
 }
