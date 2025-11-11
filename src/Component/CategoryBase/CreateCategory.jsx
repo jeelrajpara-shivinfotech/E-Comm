@@ -11,6 +11,7 @@ import {
 } from "../../common/constants/categoryConstants";
 import BaseButton from "../BaseComponents/BaseButton";
 import { errorMessages } from "../../common/validation";
+import { baseImageUrl } from "../../common/constants/config";
 
 const validationSchema = Yup.object({
   [createCategoryConstants.categoryName]: Yup.string()
@@ -86,9 +87,8 @@ function AddCategoryForm({ onClose, editData }) {
 
   useEffect(() => {
     if (editData?.category_image) {
-      setPreview(`${import.meta.env.VITE_BACKEND_BASE_IMAGE}/${editData.category_image}`);
+      setPreview(`${baseImageUrl}/${editData.category_image}`);
     }
-    setPreview()
   }, [editData]);
 
   return (

@@ -2,12 +2,14 @@ import fallbackImage from "../../assets/bags.webp"
 import { GoPencil, GoTrash } from "react-icons/go";
 import BaseActionButton from "../../Component/BaseComponents/BaseActionButton";
 import { FaEye } from "react-icons/fa";
+import { baseImageUrl } from "./config";
 
 export const categoryHeaders = {
   list: "Category List",
   details: "Category Details",
   add: "Add Category",
   edit: "Edit Category",
+  delete : "Delete Confirmation",
   noCategoryFound: "No Category Found",
 };
 
@@ -22,7 +24,7 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
     render: (value) => {
       return value ? (
         <img
-          src={`${import.meta.env.VITE_BACKEND_BASE_IMAGE}/${value}`}
+          src={`${baseImageUrl}/${value}`}
           alt="category"
           className="w-10 h-10 rounded-lg object-cover"
         />
@@ -88,6 +90,9 @@ export const createCategoryConstants = {
   save : "Save",
   file : "file",
   updateButton : "Update",
+  deleteButton : "Delete",
+  deletingButton : "Deleting..",
+  confirmationText : "Are you sure you want to delete this record?"
 }
 
 export const createCategoryLabel = {

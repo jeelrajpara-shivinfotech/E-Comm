@@ -1,10 +1,11 @@
 import axios from "axios";
 import { StatusCodes } from "http-status-codes"; 
+import { baseURL } from "../common/constants/config";
 
 
 // Create the axios instance
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+  baseURL: baseURL,
   headers: {
     "Content-Type": "application/json", 
   },

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { deleteCategory, getListOfCategory } from "../../Api/categoryApis";
 import { categoryColumns, categoryHeaders } from "../../common/constants/categoryConstants";
 import BaseButton from "../../Component/BaseComponents/BaseButton";
@@ -9,27 +9,23 @@ import BaseModal from "../../Component/BaseComponents/BaseModal";
 import CreateCategory from "../../Component/CategoryBase/CreateCategory";
 import { placeHolderConst } from "../../common/constants/dashboardConstants";
 import ViewCategory from "../../Component/CategoryBase/ViewCategory";
+import DeleteCategory from "../../Component/CategoryBase/DeleteCategory";
 
 function Category() {
   const tableRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
   const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [editData, setEditData] = useState(null);
   const [viewData, setViewData] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
- const handleDelete = async (id) => {
-  if (!window.confirm("Do you want to delete this record?")) return;
-  try {
-    const res = await deleteCategory(id);
-    toast.success(res.message);
-    tableRef.current?.refresh();
-    
-  } catch (error) {
-    toast.error(error.response.data.message);
-  }
-};
+  const handleDelete = (id) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
   const handleEdit = (row) => {
     setEditData(row);
     setEditModalOpen(true);
@@ -37,8 +33,14 @@ function Category() {
 
   const handleView = (row) => {
     setViewData(row.id);
-    setViewModalOpen(true)
-  }
+    setViewModalOpen(true);
+  };
+
+  const handleDeleteSuccess = () => {
+    tableRef.current?.refresh();
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="md:p-6">
       <div className="flex justify-between items-center flex-wrap mb-5 ">
@@ -69,7 +71,7 @@ function Category() {
       <BaseModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Add New Category"
+        title={categoryHeaders.add}
       >
         <CreateCategory
           onClose={() => {
@@ -82,7 +84,7 @@ function Category() {
       <BaseModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}
-        title="Edit Category"
+        title={categoryHeaders.edit}
       >
         <CreateCategory
           editData={editData}
@@ -94,11 +96,23 @@ function Category() {
       </BaseModal>
 
       <BaseModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title={categoryHeaders.delete}
+      >
+        <DeleteCategory
+          deleteId={deleteId}
+          onClose={() => setShowDeleteModal(false)}
+          onDeleteSuccess={handleDeleteSuccess}
+        />
+      </BaseModal>
+      
+      <BaseModal
         isOpen={viewModalOpen}
         onClose={() => setViewModalOpen(false)}
         title= {categoryHeaders.details}
       >
-        {viewData && <ViewCategory id={viewData} />} 
+        {viewData && <ViewCategory id={viewData} />}
       </BaseModal>
 
 
