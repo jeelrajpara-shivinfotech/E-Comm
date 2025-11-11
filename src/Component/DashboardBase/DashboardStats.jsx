@@ -39,8 +39,8 @@ const DashboardStats = () => {
   }, []);
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md w-full h-full relative">
-      <p className="text-lg font-bold mb-14">
+    <div className="bdg-white p-6 rounded-2xl shadow-md w-full h-full relative">
+      <p className=" mb-14 text-base font-semibold sm:text-lg whitespace-nowrap lexend">
         {dashboardHeaders.dashboardOverView}
       </p>
 
@@ -63,7 +63,7 @@ const DashboardStats = () => {
               <CartesianGrid horizontal={false} vertical={false} />
               <XAxis
                 dataKey="label"
-                tick={{ fontSize: 12, fill: "#333" }}
+                tick={{ fontSize: 12, fill: "#333" , fontFamily : "inter"}}
                 interval="preserveStartEnd"
                 textAnchor="middle"
                 height={40}
@@ -71,7 +71,7 @@ const DashboardStats = () => {
               />
               <YAxis
                 allowDecimals={false}
-                tick={{ fontSize: 12, fill: "#333" }}
+                tick={{ fontSize: 12, fill: "#333" , fontFamily : "inter"}}
                 axisLine={{ stroke: "rgb(227, 227, 227)", strokeWidth: 1 }}
                 tickLine={false}
               />

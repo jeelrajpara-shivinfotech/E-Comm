@@ -44,11 +44,11 @@ const OrderPieChart = () => {
     <div className="bg-white rounded-2xl p-6 shadow-sm h-full">
       {/* Header */}
       <div className="flex justify-between items-start mb-6 flex-wrap gap-2">
-        <p className="text-lg font-bold">{dashboardHeaders.ordersOverView}</p>
+        <p className="text-sm font-semibold sm:text-lg whitespace-nowrap inter">{dashboardHeaders.ordersOverView}</p>
         <select
           value={timeFrame}
           onChange={(e) => setTimeFrame(e.target.value)}
-          className="border border-gray-300 rounded-lg py-1 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 w-14"
+          className="border border-gray-300 rounded-lg py-1 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 w-14 cursor-pointer inter"
         >
           {pieChartTabs.map((tab) => (
             <option key={tab} value={tab}>
@@ -59,7 +59,7 @@ const OrderPieChart = () => {
       </div>
 
       {/* Chart & Legend Section */}
-      <div className="flex items-center justify-between flex-wrap relative">
+      <div className="flex items-center lg:justify-between flex-wrap relative justify-center">
         {/* Pie Chart Section */}
         <div className="w-[300px] h-[300px] relative">
           {loading && (
@@ -108,7 +108,7 @@ const OrderPieChart = () => {
         </div>
 
         {/* Legend Section */}
-        <div className="space-y-3 text-md">
+        <div className="space-y-3 lexend">
           {chartData.map((item) => (
             <div key={item.name} className="flex items-center gap-2 flex-wrap">
               <div
@@ -116,7 +116,7 @@ const OrderPieChart = () => {
                 style={{ backgroundColor: item.color }}
               ></div>
               <div className="text-gray-500">{item.name}</div>
-              <div className="font-semibold text-black ml-1">
+              <div className=" text-black ml-1">
                 {item.percent.toFixed(2)}+
               </div>
             </div>

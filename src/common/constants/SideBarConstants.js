@@ -5,7 +5,7 @@ import { ROUTES } from "../../Routes/RouteConstants";
 export const sideBarLinks = [
   {
     id: 1,
-    label: "E-commerce",
+    label: "Dashboard",
     icon: FaCartShopping,
     path: ROUTES.DASHBOARD,
   },
