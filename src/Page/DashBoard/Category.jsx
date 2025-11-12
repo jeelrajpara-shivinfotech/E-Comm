@@ -76,7 +76,7 @@ function Category() {
 
       <BaseTable
         ref={tableRef}
-        columns={categoryColumns(confirmDelete, handleEdit, handleView)} // ✅ updated
+        columns={categoryColumns(confirmDelete, handleEdit, handleView)} 
         fetchDataFn={getListOfCategory}
         searchPlaceholder={placeHolderConst.categoryPlaceHolder}
         pageKey="page"

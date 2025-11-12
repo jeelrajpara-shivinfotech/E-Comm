@@ -25,7 +25,7 @@ const BaseConfirmation = ({ isOpen,
                         className="border border-gray-300 bg-white rounded-md hover:bg-gray-100"
                         textColor="black"
                     >
-                        {createCategoryConstants.cancelButton}
+                        {createCategoryConstants.noButton}
                     </BaseButton>
                     <BaseButton
                         type="button"

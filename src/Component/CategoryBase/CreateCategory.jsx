@@ -170,10 +170,10 @@ function AddCategoryForm({ onClose, editData }) {
               icon={false}
             >
               {loading
-                ? createCategoryConstants.savingText
+                ? createCategoryConstants.addButton
                 : editData
                   ? createCategoryConstants.updateButton
-                  : createCategoryConstants.save}
+                  : createCategoryConstants.addButton}
             </BaseButton>
           </div>
         </Form>

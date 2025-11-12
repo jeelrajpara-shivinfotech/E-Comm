@@ -8,7 +8,7 @@ export default function MainLayout() {
   useEffect(() => {
     const path = location.pathname;
     const title = titles[path] || titleConst.ecomm;
-    document.title = `${title} /${titleConst.ecomm}`;
+    document.title = `${title}`;
     
   }, [location]);
 

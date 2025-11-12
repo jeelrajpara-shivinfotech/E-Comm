@@ -10,6 +10,7 @@ import { initFlowbite } from "flowbite";
 import { SideBarArrow } from "../assets/svg";
 import { dashboardMainConstants } from "../common/constants/dashboardConstants";
 import BaseConfirmation from "../Component/BaseComponents/BaseConfirmation";
+import { IoIosLogOut } from "react-icons/io";
 
 const DashboardLayout = () => {
   const location = useLocation();
@@ -118,11 +119,12 @@ const DashboardLayout = () => {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 w-48 bg-white rounded-lg shadow-md py-2 border border-gray-100 z-50">
+                <div className="absolute right-0 w-32 bg-white rounded-lg shadow-md py-2 border border-gray-100 z-50">
                   <BaseButton
                     onClick={handleSignOutClick}
-                    icon={false}
-                    className="w-full text-left px-4 py-2 bg-transparent text-black hover:bg-gray-50"
+                    customIcon={<IoIosLogOut className="h-5 w-5 text-red-600"/>}
+                    iconPosition="left"
+                    className=" bg-transparent text-black hover:bg-gray-50"
                     textColor="black"
                   >
                     {dashboardMainConstants.signOut}

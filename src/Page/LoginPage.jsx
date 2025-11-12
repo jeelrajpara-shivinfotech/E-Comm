@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
-import iconText from "../assets/logo-text.svg";
 import { loginUser } from "../Api/authApi";
 import { toast } from "react-toastify";
 import { ROUTES } from "../Routes/RouteConstants";

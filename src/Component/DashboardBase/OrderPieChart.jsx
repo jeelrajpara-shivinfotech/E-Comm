@@ -42,7 +42,7 @@ const OrderPieChart = () => {
 
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm h-full">
-      {/* Header */}
+
       <div className="flex justify-between items-start mb-6 flex-wrap gap-2">
         <p className="text-sm font-semibold sm:text-lg whitespace-nowrap inter">{dashboardHeaders.ordersOverView}</p>
         <select
@@ -58,9 +58,7 @@ const OrderPieChart = () => {
         </select>
       </div>
 
-      {/* Chart & Legend Section */}
       <div className="flex items-center lg:justify-between flex-wrap relative justify-center">
-        {/* Pie Chart Section */}
         <div className="w-[300px] h-[300px] relative">
           {loading && (
             <BaseLoader/>
@@ -74,7 +72,6 @@ const OrderPieChart = () => {
                   const outer = 65 + index * 20;
                   return (
                     <React.Fragment key={index}>
-                      {/* Background ring */}
                       <Pie
                         data={[{ value: 100 }]}
                         dataKey="value"
@@ -86,7 +83,6 @@ const OrderPieChart = () => {
                         fill="#e5e7eb"
                       />
 
-                      {/* Foreground arc */}
                       <Pie
                         data={[entry]}
                         dataKey="value"
@@ -107,7 +103,6 @@ const OrderPieChart = () => {
           )}
         </div>
 
-        {/* Legend Section */}
         <div className="space-y-3 lexend">
           {chartData.map((item) => (
             <div key={item.name} className="flex items-center gap-2 flex-wrap">
