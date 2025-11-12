@@ -15,12 +15,12 @@ export const sideBarLinks = [
     icon: HiOutlineUser,
     path: ROUTES.CATEGORY,
   },
-  // {
-  //   id: 3,
-  //   label: "Product",
-  //   icon: HiOutlineChartBar,
-  //   path: ROUTES.PRODUCT,
-  // },
+  {
+    id: 3,
+    label: "Product",
+    icon: HiOutlineChartBar,
+    path: ROUTES.PRODUCT,
+  },
   // {
   //   id: 4,
   //   label: "Report",

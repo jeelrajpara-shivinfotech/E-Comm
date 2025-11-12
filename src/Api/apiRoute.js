@@ -11,5 +11,11 @@ export const API_ROUTES = {
   FILEUPLOAD : "/fileUpload",
   UPDATECATEGORY : '/category/updateCategory',
   DELETECATEGORY : '/category/deleteCategory',
-  VIEWCATEGORY : '/category/viewCategory'
+  VIEWCATEGORY : '/category/viewCategory',
+  CATEGORYDROPDOWN : '/category/categoryDropdown',
+  LISTOFPRODUCT : '/products/listOfProducts',
+  VIEWPRODUCT : '/products/productViewForAdmin',
+  DELETEPRODUCT : "/products/deleteProduct",
+  ADDPRODUCT : "/products/addProduct",
+  EDITPRODUCT : "/products/editProduct"
 };

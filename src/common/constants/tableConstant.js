@@ -3,5 +3,6 @@ export const tableConstant = {
     noDataFound : "No data found",
     rowsPerPage : "Rows per page", 
     page : "Page",
-    of : "Of"
+    of : "Of",
+    rupee : "₹"
 }

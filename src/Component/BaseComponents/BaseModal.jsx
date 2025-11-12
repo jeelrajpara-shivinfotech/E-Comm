@@ -5,7 +5,7 @@ export default function BaseModal({ isOpen, onClose, title, children }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white rounded-2xl w-full max-w-md shadow-lg p-6 relative">
+      <div className="bg-white rounded-2xl w-full max-w-xl shadow-lg p-5 relative max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">{title}</h2>
 
         {/* Modal Content */}
