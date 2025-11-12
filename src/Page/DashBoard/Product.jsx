@@ -57,7 +57,6 @@ function Product() {
                     textColor="text-white"
                     iconPosition="left"
                     customIcon={<FaPlus className="h-4 w-4" />}
-                // onClick={() => setIsModalOpen(true)}
                 >
                     {productHeaders.add}
                 </BaseButton>

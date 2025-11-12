@@ -4,6 +4,7 @@ import { baseImageUrl } from "../../common/constants/config";
 import fallbackImg from "../../assets/bags.webp";
 import BaseLoader from "../BaseComponents/BaseLoader";
 import { productHeaders, productLabelConsts } from "../../common/constants/productConstants";
+import { tableConstant } from "../../common/constants/tableConstant";
 
 function ViewProducts({ id }) {
     const [product, setProduct] = useState(null);
@@ -104,7 +105,7 @@ function ViewProducts({ id }) {
                                         <div>
                                             <p className="text-gray-700 font-medium">{productLabelConsts.productPrice}</p>
                                             <p className="bg-gray-50 border border-gray-200 px-3 py-2 rounded-lg mt-1">
-                                                ₹{variant.price}
+                                                {tableConstant.rupee}{variant.price}
                                             </p>
                                         </div>
 
