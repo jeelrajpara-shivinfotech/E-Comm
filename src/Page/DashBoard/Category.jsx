@@ -123,7 +123,7 @@ function Category() {
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDelete}
-        title="Delete Category"
+        title={categoryHeaders.delete}
         cancelText={createCategoryConstants.cancelButton}
         description={createCategoryConstants.confirmationText}
         confirmText={loading ? createCategoryConstants.deleteButton : createCategoryConstants.deleteButton}

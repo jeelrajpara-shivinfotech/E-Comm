@@ -63,7 +63,7 @@ const DashboardLayout = () => {
       {/* SIDEBAR */}
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-80  h-screen transition-transform -translate-x-full md:translate-x-0 bg-white shadow-md"
+        className="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full md:translate-x-0 bg-white shadow-md"
         aria-label="Sidebar"
       >
         <div className="h-full flex flex-col px-8 py-6 overflow-y-auto">
@@ -142,7 +142,7 @@ const DashboardLayout = () => {
         isOpen={showSignOutModal}
         onClose={() => setShowSignOutModal(false)}
         onConfirm={handleConfirmSignOut}
-        title="Sign Out"
+        title={dashboardMainConstants.signOut}
         description= {dashboardMainConstants.signOutConfirmation}
         confirmText={loading ? dashboardMainConstants.confirmationButton: dashboardMainConstants.confirmationButton}
         loading={loading}

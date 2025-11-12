@@ -85,7 +85,7 @@ export const placeHolderConst = {
 
 export const dashboardMainConstants = {
   openSideBar : "Open sidebar",
-  signOut : "Sign Out",
+  signOut : "Sign out",
   confirmationButton : "Yes",
-  signOutConfirmation : "Are you sure you want to sign Out?"
+  signOutConfirmation : "Are you sure you want to sign out?"
 }
