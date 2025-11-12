@@ -92,19 +92,13 @@ function AddCategoryForm({ onClose, editData }) {
       const imageUrl = `${baseImageUrl}/${editData.category_image}`;
 
       img.src = imageUrl;
-
-      // when image loads successfully
       img.onload = () => {
         setPreview(imageUrl);
       };
-
-      // when image fails to load → use fallback
       img.onerror = () => {
         setPreview(fallbackImage);
       };
-    } else {
-      setPreview(fallbackImage);
-    }
+    } 
   }, [editData]);
 
 

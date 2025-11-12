@@ -1,7 +1,7 @@
 export const titles = {
-  "/sign-in": "Sign In",
+  "/sign-in": "Sign in",
   "/dashboard": "Dashboard",
-  "/dashboard/category": "Category",
+  "/category": "Category",
   "/product": "Product",
   "/report": "Report",
 };
