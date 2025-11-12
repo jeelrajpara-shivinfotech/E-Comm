@@ -13,14 +13,23 @@ export const routes = [
     children: [
       { index: true, element: <Navigate to={ROUTES.LOGIN} replace /> },
       { path: ROUTES.LOGIN, element: <LoginPage /> },
+
       {
         path: ROUTES.DASHBOARD,
         element: <Dashboard />,
         children: [
           { index: true, element: <Ecommerce /> },
-          { path: ROUTES.CATEGORY, element: <Category /> },
+        ],
+      },
+
+      {
+        path: ROUTES.CATEGORY,
+        element: <Dashboard />,
+        children: [
+          { index: true, element: <Category /> },
         ],
       },
     ],
   },
 ];
+

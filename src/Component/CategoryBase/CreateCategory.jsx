@@ -12,6 +12,7 @@ import {
 import BaseButton from "../BaseComponents/BaseButton";
 import { errorMessages } from "../../common/validation";
 import { baseImageUrl } from "../../common/constants/config";
+import fallbackImage from "../../assets/bags.webp"
 
 const validationSchema = Yup.object({
   [createCategoryConstants.categoryName]: Yup.string()
@@ -87,9 +88,25 @@ function AddCategoryForm({ onClose, editData }) {
 
   useEffect(() => {
     if (editData?.category_image) {
-      setPreview(`${baseImageUrl}/${editData.category_image}`);
+      const img = new Image();
+      const imageUrl = `${baseImageUrl}/${editData.category_image}`;
+
+      img.src = imageUrl;
+
+      // when image loads successfully
+      img.onload = () => {
+        setPreview(imageUrl);
+      };
+
+      // when image fails to load → use fallback
+      img.onerror = () => {
+        setPreview(fallbackImage);
+      };
+    } else {
+      setPreview(fallbackImage);
     }
   }, [editData]);
+
 
   return (
     <Formik
@@ -97,10 +114,10 @@ function AddCategoryForm({ onClose, editData }) {
       initialValues={
         editData
           ? {
-              [createCategoryConstants.categoryName]: editData.category_name || "",
-              [createCategoryConstants.categoryDescription]: editData.description || "",
-              [createCategoryConstants.categoryImage]: null, 
-            }
+            [createCategoryConstants.categoryName]: editData.category_name || "",
+            [createCategoryConstants.categoryDescription]: editData.description || "",
+            [createCategoryConstants.categoryImage]: null,
+          }
           : initialValues
       }
       validationSchema={validationSchema}
@@ -161,8 +178,8 @@ function AddCategoryForm({ onClose, editData }) {
               {loading
                 ? createCategoryConstants.savingText
                 : editData
-                ? createCategoryConstants.updateButton
-                : createCategoryConstants.save}
+                  ? createCategoryConstants.updateButton
+                  : createCategoryConstants.save}
             </BaseButton>
           </div>
         </Form>
