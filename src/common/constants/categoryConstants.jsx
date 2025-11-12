@@ -22,47 +22,50 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
     key: "category_image",
     label: "Image",
     render: (value) => {
-      return value ? (
+      const imageSrc = value ? `${baseImageUrl}/${value}` : fallbackImage;
+
+      return (
         <img
-          src={`${baseImageUrl}/${value}`}
+          src={imageSrc}
           alt="category"
           className="w-10 h-10 rounded-lg object-cover"
-        />
-      ) : (
-        <img
-          src={fallbackImage}
-          alt="category"
-          className="w-10 h-10 rounded-lg object-cover"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = fallbackImage;
+          }}
         />
       );
     },
   },
+
   {
     key: "category_name",
     label: "Category Name",
+    sortable: true,
   },
   {
     key: "description",
     label: "description",
     render: (value) => {
       const shouldTruncate = value?.length > 10;
-      const truncatedText = shouldTruncate ? value.slice(0 , 10) + '....' : value
+      const truncatedText = shouldTruncate ? value.slice(0, 10) + '....' : value
 
       return (
         <div className="relative group">
           <span
-            className="block truncate cursor-pointer text-gray-800 transition">
+            className={`block truncate text-gray-800 transition ${shouldTruncate ? "cursor-pointer" : ""
+              }`}
+          >
             {truncatedText}
           </span>
           {shouldTruncate && (
-          <div className="absolute top-full left-0 mt-2 hidden group-hover:block z-50">
-            <div className="bg-gray-200 text-gray-900 text-xs rounded-md py-2 px-3 shadow-md max-w-xs w-max whitespace-normal wrap-break-word">
-              {value}
-              {/* small tooltip arrow pointing up */}
-              <div className="absolute bottom-full left-4 w-0 h-0 border-4 border-transparent border-b-gray-200"></div>
+            <div className="absolute top-full left-0 cursor-pointer mt-2 hidden group-hover:block z-50">
+              <div className="bg-gray-200 text-gray-900 text-xs rounded-md py-2 px-3 shadow-md max-w-xs w-max whitespace-normal wrap-break-word">
+                {value}
+                <div className="absolute bottom-full left-4 w-0 h-0 border-4 border-transparent border-b-gray-200"></div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
       );
     },
@@ -71,6 +74,7 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
   {
     key: "createdAt",
     label: "Created At",
+    sortable: true,
     render: (value) => <span>{new Date(value).toLocaleDateString()}</span>,
   },
   {
@@ -87,16 +91,19 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
           icon={FaEye}
           onClick={() => handleView(row)}
           title="Preview"
+          className="cursor-pointer"
         />
         <BaseActionButton
           icon={GoPencil}
           onClick={() => handleEdit(row)}
           title="Edit"
+          className="cursor-pointer"
         />
         <BaseActionButton
           icon={GoTrash}
           onClick={() => handleDelete(row.id)}
           title="Delete"
+          className="cursor-pointer"
         />
       </div>
     ),
@@ -107,13 +114,12 @@ export const createCategoryConstants = {
   categoryName: "category_name",
   categoryDescription: "category_description",
   categoryImage: "category_image",
-  cancelButton: "Cancel",
+  cancelButton: "No",
   savingText: "Saving...",
   save: "Save",
   file: "file",
   updateButton: "Update",
-  deleteButton: "Delete",
-  deletingButton: "Deleting..",
+  deleteButton: "Yes",
   confirmationText: "Are you sure you want to delete this record?"
 }
 

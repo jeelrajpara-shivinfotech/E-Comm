@@ -26,6 +26,7 @@ const BaseTable = forwardRef(({
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
 
+
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearch(search);
@@ -84,6 +85,16 @@ const BaseTable = forwardRef(({
         }
     };
 
+    const handleSort = (key) => {
+        if (sortKey === key) {
+            if (sortValue === "asc") setSortValue("desc");
+            else if (sortValue === "desc") setSortValue("asc");
+            else setSortValue("asc");
+        } else {
+            setSortKey(key);
+            setSortValue("asc");
+        }
+    };
     useEffect(() => {
         loadData();
     }, [debouncedSearch, limit, page, sortKey, sortValue]);
@@ -114,24 +125,29 @@ const BaseTable = forwardRef(({
                             {columns.map((col) => (
                                 <th
                                     key={col.key}
-                                    className={`px-4 py-3 text-left ${col.sortable ? "cursor-pointer" : ""}`}
-                                    onClick={() => {
-                                        if (!col.sortable) return;
-                                        setSortKey(col.key);
-                                        setSortValue((prev) => (prev === "asc" ? "desc" : "asc"));
-                                    }}
+                                    onClick={() => col.sortable && handleSort(col.key)}
+                                    className={`px-4 py-2 text-left font-medium text-gray-700 select-none ${col.sortable ? "cursor-pointer " : ""
+                                        }`}
                                 >
-                                    <div className="flex items-center gap-1 select-none">
-                                        <span>{col.label}</span>
-                                        {col.sortable && sortKey === col.key && (
-                                            sortValue === "asc" ? (
-                                                <IoIosArrowUp className="w-4 h-4 text-gray-600" />
-                                            ) : (
-                                                <IoIosArrowDown className="w-4 h-4 text-gray-600" />
-                                            )
+                                    <div className="flex items-center gap-1">
+                                        {col.label}
+                                        {col.sortable && (
+                                            <span className="text-gray-400">
+                                                {sortKey === col.key ? (
+                                                    sortValue === "asc" ? (
+                                                        <IoIosArrowUp size={14} className="inline-block" />
+                                                    ) : (
+                                                        <IoIosArrowDown size={14} className="inline-block" />
+                                                    )
+                                                ) : (
+                                                    <IoIosArrowUp size={14} className="inline-block opacity-40 rotate-180" />
+                                                )}
+                                            </span>
                                         )}
                                     </div>
                                 </th>
+
+
                             ))}
                         </tr>
                     </thead>
@@ -140,7 +156,7 @@ const BaseTable = forwardRef(({
                         {loading ? (
                             <tr>
                                 <td colSpan={columns.length} className="py-10">
-                                    <BaseLoader overlay={false}/>
+                                    <BaseLoader overlay={false} />
                                 </td>
                             </tr>
                         ) : data.length > 0 ? (
