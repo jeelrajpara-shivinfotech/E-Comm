@@ -41,3 +41,9 @@ export const viewCategory = async(id) => {
   const res = await axiosInstance.get(`${API_ROUTES.VIEWCATEGORY}/${id}`);
   return res.data;
 }
+
+// Category Dropdown
+export const categoryDropdown = async() => {
+  const res = await axiosInstance.get(API_ROUTES.CATEGORYDROPDOWN);
+  return res.data;
+}
