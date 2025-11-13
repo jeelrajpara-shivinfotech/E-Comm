@@ -124,9 +124,11 @@ export const createCategoryConstants = {
   noButton : "No",
   savingText: "Saving...",
   save: "Save",
-  addButton : "Add",
+  addButton : "Submit",
+  addingButton : "Submitting..",
   file: "file",
   updateButton: "Update",
+  updatingButton : "Updating...",
   deleteButton: "Yes",
   confirmationText: "Are you sure you want to delete this record?"
 }

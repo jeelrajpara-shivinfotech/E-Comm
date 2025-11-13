@@ -14,4 +14,9 @@ export const errorMessages = {
   number: "Password must contain at least one number.",
   specialChar: "Password must contain at least one special character (!@#$%^&*).",
   CategoryImage: "Image size should be less than 1 MB.",
+  minPrice : "Price must be positive.",
+  minQuantity : "Quantity must be at least 1.",
+  minDescription : "Description must be at least 10 characters.",
+  maxDescription : "Description must not exceed 500 characters.",
+  minVariant : "At least one variant is required."
 };
