@@ -4,21 +4,21 @@ import { CiCircleAlert } from "react-icons/ci";
 export const dashboardCardConstants = [
   {
     id: 1,
-    title: "Total Orders",
+    title: "Total orders",
     key: "total_order",
     icon: FaShoppingBag,
     color: "#3B82F6",
   },
   {
     id: 2,
-    title: "Cancelled Orders",
+    title: "Cancelled orders",
     key: "total_cancel_order",
     icon: CiCircleAlert,
     color: "#EF4444",
   },
   {
     id: 3,
-    title: "Pending Orders",
+    title: "Pending orders",
     key: "total_pending_order",
     icon: FaClock,
     color: "#FACC15",
@@ -40,20 +40,20 @@ export const dashboardCardConstants = [
 ];
 
 export const dashboardHeaders = {
-  dashboardOverView : "Dashboard Overview",
-  ordersOverView : "Orders Overview",
-  highestPurchaseOrder : "Highest Purchase Order",
-  userReport : "User Report", 
-  orderReport : "Order Report",
+  dashboardOverView : "Dashboard overview",
+  ordersOverView : "Orders overview",
+  highestPurchaseOrder : "Highest purchase order",
+  userReport : "User report", 
+  orderReport : "Order report",
   noUserFound : "No user found",
   noOrderFound : "No order found"
 }
 
 export const dashboardTableHeaders = {
   label1 : "S.No",
-  label2 : "User ID",
-  label3 : "User Name",
-  label4 : "Total Price"
+  label2 : "User iD",
+  label3 : "User name",
+  label4 : "Total price"
 }
 
 export const pieChartTabs = [
@@ -68,11 +68,11 @@ export const userReportColumn = [
 ]
 
 export const orderReportColumns = [
-  { key: "id", label: "Order Id", sortable: true },
-  { key: "order_name", label: "Order Name" },
-  { key: "name", label: "Customer Name" },
+  { key: "id", label: "Order id", sortable: true },
+  { key: "order_name", label: "Order name" },
+  { key: "name", label: "Customer name" },
   { key: "order_amount", label: "Amount", render: (v) => `₹${v}` },
-  { key: "total_items", label: "Total Items" },
+  { key: "total_items", label: "Total items" },
 ];
 
 export const pieChartColor = ["#FACC15", "#5ED5C8", "#1E7E68"];
@@ -85,7 +85,7 @@ export const placeHolderConst = {
 
 export const dashboardMainConstants = {
   openSideBar : "Open sidebar",
-  signOut : "Sign out",
+  signOut : "Log out",
   confirmationButton : "Yes",
-  signOutConfirmation : "Are you sure you want to sign out?"
+  signOutConfirmation : "Are you sure you want to log out?"
 }
