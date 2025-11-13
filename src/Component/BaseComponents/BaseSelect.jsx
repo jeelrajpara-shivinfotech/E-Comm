@@ -45,7 +45,7 @@ export default function BaseSelect({
         name={name}
         onClick={() => !disabled && setOpen(!open)}
         disabled={disabled}
-        className={`flex justify-between items-center w-full rounded-md border border-gray-300 bg-white text-gray-800 text-sm  px-3 py-2 focus:ring-1 focus:ring-blue-500 ${
+        className={`flex justify-between items-center gap-1 w-full rounded-md border border-gray-300 bg-white text-gray-800 text-sm  px-2 py-2 focus:ring-1 focus:ring-blue-500 ${
           disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
         }`}
       >
