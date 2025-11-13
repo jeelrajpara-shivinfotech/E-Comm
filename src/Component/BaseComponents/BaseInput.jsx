@@ -16,11 +16,11 @@ function BaseInput({
   accept = ".jpg,.jpeg,.png,.webp",
   setFieldValue,
   setPreview,
+  min
 }) {
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
 
-  // Handle file input change manually
   const handleFileChange = (e) => {
     const file = e.currentTarget.files[0];
     setFileName(file ? file.name : "");
@@ -45,10 +45,9 @@ function BaseInput({
       )}
 
       <div className="relative">
-        {/* Conditional rendering based on input type */}
         {type === "file" ? (
           <div className="flex items-center gap-4 cursor-pointer bg-white rounded-md border border-gray-300">
-            {/* Hidden file input */}
+
             <input
               id={id}
               ref={fileInputRef}
@@ -58,14 +57,12 @@ function BaseInput({
               onChange={handleFileChange}
               className="hidden"
             />
-            
-            {/* Custom file button */}
             <BaseButton
-            type="button"
-            onClick={handleFileButtonClick}
-            className="bg-gray-200 px-4"
-            textColor="text-gray-700"
-            icon={false}
+              type="button"
+              onClick={handleFileButtonClick}
+              className="bg-gray-200 px-4"
+              textColor="text-gray-700"
+              icon={false}
             >
               Choose File
             </BaseButton>
@@ -78,12 +75,12 @@ function BaseInput({
             id={id}
             name={name}
             type={type === "password" && showPassword ? "text" : type}
+            min={type === "number" ? min ?? 0 : min}
             placeholder={placeholder}
             className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
           />
         )}
 
-        {/* Password toggle icon */}
         {showToggle && type === "password" && (
           <button
             type="button"

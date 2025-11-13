@@ -10,7 +10,7 @@ export const productHeaders = {
     noProductFound: "No product found",
 };
 
-export const productColumns = (handleView , handleDelete) => [
+export const productColumns = (handleView , handleDelete, handleEdit) => [
     {
         key: "id",
         label: "ID",
@@ -48,18 +48,24 @@ export const productColumns = (handleView , handleDelete) => [
                     onClick={() => handleView(row)}
                     title="Preview"
                     className="cursor-pointer"
+                    tooltipBg="bg-blue-600 text-white"
+                    tooltipArrow="border-t-blue-600"
                 />
                 <BaseActionButton
                     icon={GoPencil}
-                    // onClick={() => handleEdit(row)}
+                    onClick={() => handleEdit(row)}
                     title="Edit"
                     className="cursor-pointer"
+                    tooltipBg="bg-blue-600 text-white"
+                    tooltipArrow="border-t-blue-600"
                 />
                 <BaseActionButton
                     icon={GoTrash}
                     onClick={() => handleDelete(row.id)}
                     title="Delete"
                     className="cursor-pointer"
+                    tooltipBg="bg-red-600 text-white"
+                    tooltipArrow="border-t-red-600"
                 />
             </div>
         ),
@@ -68,17 +74,40 @@ export const productColumns = (handleView , handleDelete) => [
 ]
 
 export const productLabelConsts = {
-    productName : "Product name",
-    productTitle : "Product title",
-    productColor : "Color",
-    productPrice : "Price",
-    productVarients : "Varients",
-    categoryName : "Category name",
-    productQuantity : "Quantity",
-    productDescription : "Product description",
-    productSize : "Size"
+    productName: "Product name",
+    productTitle: "Product title",
+    productColor: "Color",
+    productPrice: "Price",
+    productVarients: "Varients",
+    categoryName: "Category name",
+    productQuantity: "Quantity",
+    productDescription: "Product description",
+    productSize: "Size",
+    productImage : "Product image",
+    addVariant : "Add variant"
 }
 
 export const productPlaceHolder = {
-    searchPlaceHolder : "Search product name"
+    searchPlaceHolder: "Search product name",
+    productNamePlaceHolder : "Enter product name",
+    selectCategoryPlaceHolder : "Select category",
+    productTitlePlaceHolder : "Enter product title",
+    productDescription : "Enter product description",
+    productColor : "Enter product color",
+    productSize : "Enter product size",
+    productPrice : "Enter product price",
+    productQuantity : "Enter quantity"
 }
+
+export const productFieldConsts = {
+  name: "name",
+  categoryId: "category_id",
+  productVariants: "product_variants",
+  productTitle: "product_title_name",
+  productDescription: "description",
+  productColor: "color",
+  productSize: "size",
+  productPrice: "price",
+  productQuantity: "quantity",
+  productImage: "variant_image",
+};

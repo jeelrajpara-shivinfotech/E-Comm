@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+ import React, { useEffect, useRef, useState } from 'react'
 import { productColumns, productHeaders, productPlaceHolder } from '../../common/constants/productConstants'
 import BaseButton from '../../Component/BaseComponents/BaseButton'
 import BaseTable from "../../Component/BaseComponents/BaseTable"
@@ -9,6 +9,7 @@ import ViewProducts from '../../Component/ProductBase/ViewProducts'
 import BaseConfirmation from '../../Component/BaseComponents/BaseConfirmation'
 import { toast } from 'react-toastify'
 import { createCategoryConstants } from '../../common/constants/categoryConstants'
+import CreateEdit from '../../Component/ProductBase/CreateEdit'
 
 function Product() {
     const tableRef = useRef(null);
@@ -16,7 +17,10 @@ function Product() {
     const [viewData, setViewData] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
-    const [loading , setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editData , setEditData] = useState(null)
 
     const handleView = (row) => {
         setViewData(row.id);
@@ -48,6 +52,11 @@ function Product() {
         setDeleteId(id);
         setShowDeleteModal(true);
     };
+
+    const handleEdit = (row) => {
+        setEditData(row);
+        setEditModalOpen(true);
+    };
     return (
         <div className='md:p-6'>
             <div className="flex justify-between items-center flex-wrap gap-3 mb-5">
@@ -57,13 +66,14 @@ function Product() {
                     textColor="text-white"
                     iconPosition="left"
                     customIcon={<FaPlus className="h-4 w-4" />}
+                    onClick={() => setIsModalOpen(true)}
                 >
                     {productHeaders.add}
                 </BaseButton>
             </div>
             <BaseTable
                 ref={tableRef}
-                columns={productColumns(handleView , confirmDelete)}
+                columns={productColumns(handleView, confirmDelete, handleEdit)}
                 fetchDataFn={productListing}
                 searchPlaceholder={productPlaceHolder.searchPlaceHolder}
                 pageKey="page"
@@ -77,6 +87,33 @@ function Product() {
                 title={productHeaders.details}
             >
                 {viewData && <ViewProducts id={viewData} />}
+            </BaseModal>
+
+            <BaseModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={productHeaders.add}
+            >
+                <CreateEdit
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        tableRef.current?.refresh();
+                    }}
+                />
+            </BaseModal>
+
+            <BaseModal
+                isOpen={editModalOpen}
+                onClose={() => setEditModalOpen(false)}
+                title={productHeaders.edit}
+            >
+                <CreateEdit
+                    editData={editData}
+                    onClose={() => {
+                        setEditModalOpen(false);
+                        tableRef.current?.refresh();
+                    }}
+                />
             </BaseModal>
 
             <BaseConfirmation

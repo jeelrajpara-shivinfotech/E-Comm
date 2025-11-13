@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
       "fileSize",
       errorMessages.CategoryImage,
       (value) =>
-        !value || (value && value.size <= 1024 * 1024) // <= 1 MB
+        !value || (value && value.size <= 1024 * 1024) 
     )
     .nullable(),
 });
@@ -98,7 +98,7 @@ function AddCategoryForm({ onClose, editData }) {
       img.onerror = () => {
         setPreview(fallbackImage);
       };
-    } 
+    }
   }, [editData]);
 
 
@@ -170,10 +170,13 @@ function AddCategoryForm({ onClose, editData }) {
               icon={false}
             >
               {loading
-                ? createCategoryConstants.savingText
+                ? editData
+                  ? createCategoryConstants.updatingButton
+                  : createCategoryConstants.addingButton
                 : editData
                   ? createCategoryConstants.updateButton
-                  : createCategoryConstants.save}
+                  : createCategoryConstants.addButton
+              }
             </BaseButton>
           </div>
         </Form>

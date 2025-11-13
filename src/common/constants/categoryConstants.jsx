@@ -92,18 +92,24 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
           onClick={() => handleView(row)}
           title="Preview"
           className="cursor-pointer"
+          tooltipBg="bg-blue-600 text-white"
+          tooltipArrow="border-t-blue-600"
         />
         <BaseActionButton
           icon={GoPencil}
           onClick={() => handleEdit(row)}
           title="Edit"
           className="cursor-pointer"
+          tooltipBg="bg-blue-600 text-white"
+          tooltipArrow="border-t-blue-600"
         />
         <BaseActionButton
           icon={GoTrash}
           onClick={() => handleDelete(row.id)}
           title="Delete"
           className="cursor-pointer"
+          tooltipBg="bg-red-600 text-white"
+          tooltipArrow="border-t-red-600"
         />
       </div>
     ),
@@ -114,11 +120,15 @@ export const createCategoryConstants = {
   categoryName: "category_name",
   categoryDescription: "category_description",
   categoryImage: "category_image",
-  cancelButton: "No",
+  cancelButton: "Cancel",
+  noButton : "No",
   savingText: "Saving...",
   save: "Save",
+  addButton : "Submit",
+  addingButton : "Submitting..",
   file: "file",
   updateButton: "Update",
+  updatingButton : "Updating...",
   deleteButton: "Yes",
   confirmationText: "Are you sure you want to delete this record?"
 }
