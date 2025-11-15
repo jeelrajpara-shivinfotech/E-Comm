@@ -16,7 +16,8 @@ function BaseInput({
   accept = ".jpg,.jpeg,.png,.webp",
   setFieldValue,
   setPreview,
-  min
+  min,
+  onKeyDownCustom,
 }) {
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
@@ -77,8 +78,20 @@ function BaseInput({
             type={type === "password" && showPassword ? "text" : type}
             min={type === "number" ? min ?? 0 : min}
             placeholder={placeholder}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:border-black"
+            onKeyDown={(e) => {
+              if (onKeyDownCustom) {
+                onKeyDownCustom(e);
+              }
+            }}
+            className="
+      w-full border border-gray-300 rounded-md px-4 py-2 pr-10 
+      focus:outline-none focus:border-black
+      [appearance:textfield]
+      [&::-webkit-inner-spin-button]:appearance-none
+      [&::-webkit-outer-spin-button]:appearance-none
+  "
           />
+
         )}
 
         {showToggle && type === "password" && (

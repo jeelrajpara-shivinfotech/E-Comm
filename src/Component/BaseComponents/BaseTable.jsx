@@ -181,7 +181,7 @@ const BaseTable = forwardRef(({
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 flex-wrap gap-2 inter">
+            <div className="flex items-center md:justify-between justify-center px-4 py-3 text-sm text-gray-700 flex-wrap gap-2 inter">
                 <div className="flex items-center gap-2 ">
                     <span>{tableConstant.rowsPerPage}</span>
                     <BaseSelect

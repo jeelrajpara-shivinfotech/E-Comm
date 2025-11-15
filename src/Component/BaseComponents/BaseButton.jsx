@@ -9,6 +9,7 @@ export default function BaseButton({
   customIcon = null,
   className = "",
   onClick,
+  disabled,
   ...props
 }) {
   const defaultArrow = (
@@ -22,7 +23,7 @@ export default function BaseButton({
       onClick={onClick}
       type="submit"
       {...props}
-      className={`px-4 py-2 cursor-pointer rounded-md flex items-center justify-center gap-2 lexend hover:opacity-90 transition ${bgColor} ${textColor} ${className}`}
+      className={`px-4 py-2 rounded-md flex items-center justify-center gap-2 lexend hover:opacity-90 transition ${bgColor} ${textColor} ${className} ${disabled ? "" : "cursor-pointer"}`} disabled={disabled}
     >
       {iconPosition === "left" && iconElement}
       {children}

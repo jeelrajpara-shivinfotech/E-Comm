@@ -15,6 +15,7 @@ import { FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { productFieldConsts, productLabelConsts, productPlaceHolder } from "../../common/constants/productConstants";
 import { errorMessages } from "../../common/validation";
+import BaseLoader from "../BaseComponents/BaseLoader";
 
 const validationSchema = Yup.object({
     name: Yup.string().required(errorMessages.Required(productLabelConsts.productName)),
@@ -23,14 +24,14 @@ const validationSchema = Yup.object({
         .of(
             Yup.object({
                 product_title_name: Yup.string().required(errorMessages.Required(productLabelConsts.productTitle)),
-                description: Yup.string().required(errorMessages.Required(productLabelConsts.productDescription)).min(10, errorMessages.minDescription).max(500, errorMessages.maxDescription),
+                description: Yup.string().required(errorMessages.Required(productLabelConsts.productDescription)),
                 color: Yup.string().required(errorMessages.Required(productLabelConsts.productColor)),
                 size: Yup.string().required(errorMessages.Required(productLabelConsts.productSize)),
                 price: Yup.number().required(errorMessages.Required(productLabelConsts.productPrice)).min(0, errorMessages.minPrice),
-                quantity: Yup.number().required(errorMessages.Required(productLabelConsts.productQuantity)).min(1, errorMessages.minQuantity),                
-                variant_image: Yup.mixed()                    
-                .required(errorMessages.Required(productLabelConsts.productImage))            
-                .test("fileSize", errorMessages.CategoryImage, (value) => {
+                quantity: Yup.number().required(errorMessages.Required(productLabelConsts.productQuantity)).min(1, errorMessages.minQuantity),
+                variant_image: Yup.mixed()
+                    .required(errorMessages.Required(productLabelConsts.productImage))
+                    .test("fileSize", errorMessages.CategoryImage, (value) => {
                         if (!value) return false;
                         if (typeof value === "string") return true;
                         return value?.size <= 1024 * 1024;
@@ -57,7 +58,7 @@ export default function CreateEdit({ onClose, editData }) {
         };
         fetchCategories();
     }, []);
-    
+
     useEffect(() => {
         if (!editData?.id) return;
 
@@ -94,7 +95,7 @@ export default function CreateEdit({ onClose, editData }) {
                 );
             } catch (err) {
                 console.error(err);
-                toast.error(err?.response?.data?.message );
+                toast.error(err?.response?.data?.message);
             }
         };
 
@@ -203,184 +204,224 @@ export default function CreateEdit({ onClose, editData }) {
         }
     }, [editData]);
 
+    const isVariantInvalid = (variants) => {
+        return variants.some(v =>
+            !v.product_title_name ||
+            !v.description ||
+            !v.color ||
+            !v.size ||
+            !v.price ||
+            !v.quantity ||
+            !v.variant_image
+        );
+    };
+
+
 
     return (
-        <Formik
-            enableReinitialize
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-        >
-            {({ values, setFieldValue, errors }) => (
-                <Form className="flex flex-col gap-3">
-                    <BaseInput
-                        id={productFieldConsts.name}
-                        name={productFieldConsts.name}
-                        label={productLabelConsts.productName}
-                        placeholder={productPlaceHolder.productNamePlaceHolder}
-                        required
-                    />
-               
-                    <BaseSelect
-                        id={productFieldConsts.categoryId}
-                        name={productFieldConsts.categoryId}
-                        label={productLabelConsts.categoryName}
-                        value={values?.category_id}
-                        onChange={(e) => setFieldValue(productFieldConsts.categoryId, e?.target?.value)}
-                        options={
-                            categories?.map((item) => ({
-                                value: item?.id,
-                                label: item?.category_name,
-                            })) || []
-                        }
-                        placeholder={productPlaceHolder.selectCategoryPlaceHolder}
-                        className="w-full"
-                        required
-                        error={errors?.category_id}
-                    />
+        <div className="relative w-full min-h-[300px]">
+            {(editData?.id && !productData) ? (
+                <div className="absolute inset-0 flex items-center justify-center z-50 bg-white/60 backdrop-blur-sm">
+                    <BaseLoader />
+                </div>
+            ) : (
+                <Formik
+                    enableReinitialize
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ values, setFieldValue, errors }) => (
+                        <Form className="flex flex-col gap-3 p-1">
 
-                    <FieldArray name={productFieldConsts.productVariants}>
-                        {({ push, remove }) => (
-                            <div className="flex flex-col gap-4 mt-2">
-                                {values?.product_variants?.map((variant, index) => (
-                                    <div
-                                        key={index}
-                                        className="border-gray-200 shadow-sm rounded-lg p-4 bg-gray-50 relative"
-                                    >
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productTitle}`}
-                                                label={productLabelConsts.productTitle}
-                                                placeholder={productPlaceHolder.productTitlePlaceHolder}
-                                                required
-                                            />
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productDescription}`}
-                                                label={productLabelConsts.productDescription}
-                                                placeholder={productPlaceHolder.productDescription}
-                                                required
-                                            />
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productColor}`}
-                                                label={productLabelConsts.productColor}
-                                                placeholder={productPlaceHolder.productColor}
-                                                required
-                                            />
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productSize}`}
-                                                label={productLabelConsts.productSize}
-                                                placeholder={productPlaceHolder.productSize}
-                                                required
-                                            />
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productPrice}`}
-                                                label={productLabelConsts.productPrice}
-                                                type="number"
-                                                min="0"
-                                                placeholder={productPlaceHolder.productPrice}
-                                                required
-                                            />
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productQuantity}`}
-                                                label={productLabelConsts.productQuantity}
-                                                type="number"
-                                                min="0"
-                                                placeholder={productPlaceHolder.productQuantity}
-                                                required
-                                            />
-                                        </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <BaseInput
+                                    id={productFieldConsts.name}
+                                    name={productFieldConsts.name}
+                                    label={productLabelConsts.productName}
+                                    placeholder={productPlaceHolder.productNamePlaceHolder}
+                                    required
+                                />
 
-                                        <div className="mt-3">
-                                            <BaseInput
-                                                name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productImage}`}
-                                                required
-                                                label={productLabelConsts.productImage}
-                                                type="file"
-                                                setFieldValue={setFieldValue}
-                                                setPreview={(url) => {
-                                                    const newPreviews = [...(previewList || [])];
-                                                    newPreviews[index] = url;
-                                                    setPreviewList(newPreviews);
-                                                }}
-                                            />
-                                            {previewList?.[index] && (
-                                                <img
-                                                    src={previewList?.[index] || fallbackImage}
-                                                    onError={(e) => (e.target.src = fallbackImage)}
-                                                    alt="preview"
-                                                    className="w-16 h-16 rounded-md border"
-                                                />
-                                            )}
-                                        </div>
+                                <BaseSelect
+                                    id={productFieldConsts.categoryId}
+                                    name={productFieldConsts.categoryId}
+                                    label={productLabelConsts.categoryName}
+                                    value={values?.category_id}
+                                    onChange={(e) =>
+                                        setFieldValue(productFieldConsts.categoryId, e?.target?.value)
+                                    }
+                                    options={
+                                        categories?.map((item) => ({
+                                            value: item?.id,
+                                            label: item?.category_name,
+                                        })) || []
+                                    }
+                                    placeholder={productPlaceHolder.selectCategoryPlaceHolder}
+                                    className="w-full"
+                                    required
+                                    error={errors?.category_id}
+                                />
+                            </div>
 
-                                        {values?.product_variants?.length > 1 && (
+                            <FieldArray name={productFieldConsts.productVariants}>
+                                {({ push, remove }) => (
+                                    <div className="flex flex-col gap-4 mt-2">
+
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h3 className="text-lg font-semibold">{productLabelConsts.productVarients}</h3>
+
                                             <BaseButton
                                                 type="button"
-                                                onClick={() => remove(index)}
-                                                icon={false}
-                                                className="absolute top-2 right-0 text-red-500 bg-transparent"
-                                                textColor="text-red-500"
+                                                onClick={() =>
+                                                    push({
+                                                        product_title_name: "",
+                                                        description: "",
+                                                        color: "",
+                                                        size: "",
+                                                        price: "",
+                                                        quantity: "",
+                                                        variant_image: null,
+                                                        preview: null,
+                                                    })
+                                                }
+                                                disabled={isVariantInvalid(values.product_variants)}
+                                                className={`rounded-lg shadow transition ${isVariantInvalid(values.product_variants)
+                                                        ? "bg-gray-400 cursor-not-allowed"
+                                                        : "bg-blue-600 hover:bg-blue-700"
+                                                    }`}
+                                                customIcon={<FaPlus className="w-4 h-4" />}
+                                                iconPosition="left"
                                             >
-                                                <RxCross2 />
+                                                {productLabelConsts.addVariant}
                                             </BaseButton>
-                                        )}
-                                    </div>
-                                ))}
+                                        </div>
 
+                                        {values?.product_variants?.map((variant, index) => (
+                                            <div
+                                                key={index}
+                                                className="border-gray-200 shadow-md rounded-lg p-4 bg-white relative"
+                                            >
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productTitle}`}
+                                                        label={productLabelConsts.productTitle}
+                                                        placeholder={productPlaceHolder.productTitlePlaceHolder}
+                                                        required
+                                                    />
+
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productDescription}`}
+                                                        label={productLabelConsts.productDescription}
+                                                        placeholder={productPlaceHolder.productDescription}
+                                                        required
+                                                    />
+
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productColor}`}
+                                                        label={productLabelConsts.productColor}
+                                                        placeholder={productPlaceHolder.productColor}
+                                                        required
+                                                    />
+
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productSize}`}
+                                                        label={productLabelConsts.productSize}
+                                                        placeholder={productPlaceHolder.productSize}
+                                                        required
+                                                    />
+
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productPrice}`}
+                                                        label={productLabelConsts.productPrice}
+                                                        placeholder={productPlaceHolder.productPrice}
+                                                        type="number"
+                                                        required
+                                                    />
+
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productQuantity}`}
+                                                        label={productLabelConsts.productQuantity}
+                                                        placeholder={productPlaceHolder.productQuantity}
+                                                        type="number"
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div className="mt-3">
+                                                    <BaseInput
+                                                        name={`${productFieldConsts.productVariants}.${index}.${productFieldConsts.productImage}`}
+                                                        label={productLabelConsts.productImage}
+                                                        type="file"
+                                                        required
+                                                        setFieldValue={setFieldValue}
+                                                        setPreview={(url) => {
+                                                            const updated = [...previewList];
+                                                            updated[index] = url;
+                                                            setPreviewList(updated);
+                                                        }}
+                                                    />
+
+                                                    {previewList?.[index] && (
+                                                        <img
+                                                            src={previewList[index]}
+                                                            alt="preview"
+                                                            className="w-16 h-16 mt-2 rounded-md border"
+                                                            onError={(e) => (e.target.src = fallbackImage)}
+                                                        />
+                                                    )}
+                                                </div>
+
+                                                {values.product_variants.length > 1 && (
+                                                    <BaseButton
+                                                        type="button"
+                                                        onClick={() => remove(index)}
+                                                        className="absolute top-2 right-2 text-red-600 bg-transparent"
+                                                        icon={false}
+                                                    >
+                                                        <RxCross2 className="text-xl" />
+                                                    </BaseButton>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </FieldArray>
+
+                            <div className="flex justify-end gap-2">
                                 <BaseButton
                                     type="button"
-                                    onClick={() =>
-                                        push({
-                                            product_title_name: "",
-                                            description: "",
-                                            color: "",
-                                            size: "",
-                                            price: "",
-                                            quantity: "",
-                                            variant_image: null,
-                                            preview: null,
-                                        })
-                                    }
-                                    className="bg-blue-600"
-                                    customIcon={<FaPlus className="w-4 h-4" />}
-                                    iconPosition="left"
+                                    className="border border-gray-300 bg-white rounded-md"
+                                    textColor="black"
+                                    onClick={onClose}
+                                    icon={false}
                                 >
-                                    {productLabelConsts.addVariant}
+                                    {createCategoryConstants.cancelButton}
+                                </BaseButton>
+
+                                <BaseButton
+                                    type="submit"
+                                    disabled={loading}
+                                    className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                                    icon={false}
+                                >
+                                    {loading
+                                        ? editData
+                                            ? createCategoryConstants.updatingButton
+                                            : createCategoryConstants.addingButton
+                                        : editData
+                                            ? createCategoryConstants.updateButton
+                                            : createCategoryConstants.addButton}
                                 </BaseButton>
                             </div>
-                        )}
-                    </FieldArray>
 
-                    <div className="flex justify-end gap-2">
-                        <BaseButton
-                            type="button"
-                            className="border border-gray-300 bg-white rounded-md"
-                            textColor="black"
-                            onClick={onClose}
-                            icon={false}
-                        >
-                            {createCategoryConstants.cancelButton}
-                        </BaseButton>
-
-                         <BaseButton
-                            type="submit"
-                            disabled={loading}
-                            className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
-                            icon={false}
-                        >
-                            {loading
-                                ? editData
-                                    ? createCategoryConstants.updatingButton
-                                    : createCategoryConstants.addingButton
-                                : editData
-                                    ? createCategoryConstants.updateButton
-                                    : createCategoryConstants.addButton
-                            }
-                        </BaseButton>
-
-                    </div>
-                </Form>
+                        </Form>
+                    )}
+                </Formik>
             )}
-        </Formik>
+            {loading && (
+                <BaseLoader/>
+            )}
+        </div>
     );
 }
