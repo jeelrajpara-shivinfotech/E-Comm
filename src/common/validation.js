@@ -2,7 +2,7 @@ export const regex = {
   uppercase: /[A-Z]/,
   lowercase: /[a-z]/,
   num: /[0-9]/,
-  specialChar: /[!@#$%^&*]/,
+  specialChar: /[!@#$%^&*.]/,
 };
 
 export const errorMessages = {

@@ -32,7 +32,7 @@ const validationSchema = Yup.object({
 });
 
 function AddCategoryForm({ onClose, editData }) {
-  const [loading, setLoading] = useState(false);         
+  const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
   const [preview, setPreview] = useState(null);
 
@@ -111,7 +111,7 @@ function AddCategoryForm({ onClose, editData }) {
   return (
     <div className="relative w-full min-h-[250px]">
       {loadingData && (
-          <BaseLoader />
+        <BaseLoader />
       )}
 
       <Formik
@@ -119,16 +119,17 @@ function AddCategoryForm({ onClose, editData }) {
         initialValues={
           editData
             ? {
-                [createCategoryConstants.categoryName]: editData.category_name || "",
-                [createCategoryConstants.categoryDescription]: editData.description || "",
-                [createCategoryConstants.categoryImage]: null,
-              }
+              [createCategoryConstants.categoryName]: editData.category_name || "",
+              [createCategoryConstants.categoryDescription]: editData.description || "",
+              [createCategoryConstants.categoryImage]: null,
+            }
             : initialValues
         }
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
+        validateOnMount={true}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, isValid }) => (
           <Form className="flex flex-col gap-2">
 
             <BaseInput
@@ -177,24 +178,27 @@ function AddCategoryForm({ onClose, editData }) {
 
               <BaseButton
                 type="submit"
-                disabled={loading}
-                className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                disabled={!isValid || loading}
                 icon={false}
+                className={`rounded-md shadow transition ${(!isValid || loading)
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+                  }`}
               >
                 {loading
                   ? editData
                     ? createCategoryConstants.updatingButton
                     : createCategoryConstants.addingButton
                   : editData
-                  ? createCategoryConstants.updateButton
-                  : createCategoryConstants.addButton}
+                    ? createCategoryConstants.updateButton
+                    : createCategoryConstants.addButton}
               </BaseButton>
             </div>
           </Form>
         )}
       </Formik>
       {loading && (
-          <BaseLoader />
+        <BaseLoader />
       )}
     </div>
   );

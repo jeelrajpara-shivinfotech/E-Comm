@@ -14,7 +14,7 @@ import BaseSelect from "../BaseComponents/BaseSelect";
 import { FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { productFieldConsts, productLabelConsts, productPlaceHolder } from "../../common/constants/productConstants";
-import { errorMessages } from "../../common/validation";
+import { errorMessages, regex } from "../../common/validation";
 import BaseLoader from "../BaseComponents/BaseLoader";
 
 const validationSchema = Yup.object({
@@ -217,6 +217,18 @@ export default function CreateEdit({ onClose, editData }) {
     };
 
 
+    const allowedKeys = (e) => {
+        const allowedKeys = [
+            "Backspace", "Tab", "ArrowLeft", "ArrowRight",
+            "Delete", "Home", "End"
+        ];
+
+        if (allowedKeys.includes(e.key)) return;
+        const isValid = regex.uppercase.test(e.key) ||
+            regex.lowercase.test(e.key) ||
+            regex.num.test(e.key);
+        if (!isValid) e.preventDefault();
+    }
 
     return (
         <div className="relative w-full min-h-[300px]">
@@ -227,11 +239,12 @@ export default function CreateEdit({ onClose, editData }) {
             ) : (
                 <Formik
                     enableReinitialize
+                    validateOnMount={true}
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ values, setFieldValue, errors }) => (
+                    {({ values, setFieldValue, errors, isValid, dirty }) => (
                         <Form className="flex flex-col gap-3 p-1">
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -287,8 +300,8 @@ export default function CreateEdit({ onClose, editData }) {
                                                 }
                                                 disabled={isVariantInvalid(values.product_variants)}
                                                 className={`rounded-lg shadow transition ${isVariantInvalid(values.product_variants)
-                                                        ? "bg-gray-400 cursor-not-allowed"
-                                                        : "bg-blue-600 hover:bg-blue-700"
+                                                    ? "bg-gray-400 cursor-not-allowed"
+                                                    : "bg-blue-600 hover:bg-blue-700"
                                                     }`}
                                                 customIcon={<FaPlus className="w-4 h-4" />}
                                                 iconPosition="left"
@@ -329,7 +342,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         label={productLabelConsts.productSize}
                                                         placeholder={productPlaceHolder.productSize}
                                                         required
-                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
+                                                        onKeyDownCustom={allowedKeys}
                                                     />
 
                                                     <BaseInput
@@ -338,7 +351,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         placeholder={productPlaceHolder.productPrice}
                                                         type="number"
                                                         required
-                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
+                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" || e.key === "+") { e.preventDefault(); } }}
                                                     />
 
                                                     <BaseInput
@@ -347,7 +360,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         placeholder={productPlaceHolder.productQuantity}
                                                         type="number"
                                                         required
-                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
+                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" || e.key === "+") { e.preventDefault(); } }}
                                                     />
                                                 </div>
 
@@ -404,9 +417,12 @@ export default function CreateEdit({ onClose, editData }) {
 
                                 <BaseButton
                                     type="submit"
-                                    disabled={loading}
-                                    className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                                    disabled={!isValid || loading}
                                     icon={false}
+                                    className={`rounded-md shadow transition ${(!isValid || loading)
+                                            ? "bg-gray-400 cursor-not-allowed"
+                                            : "bg-blue-600 hover:bg-blue-700"
+                                        }`}
                                 >
                                     {loading
                                         ? editData
@@ -417,13 +433,12 @@ export default function CreateEdit({ onClose, editData }) {
                                             : createCategoryConstants.addButton}
                                 </BaseButton>
                             </div>
-
                         </Form>
                     )}
                 </Formik>
             )}
             {loading && (
-                <BaseLoader/>
+                <BaseLoader />
             )}
         </div>
     );
