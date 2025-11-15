@@ -90,7 +90,6 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      {/* MAIN CONTENT */}
       <main className="md:ml-80 bg-gray-50 min-h-screen shadow-sm border-l-2 border-gray-100">
         <nav className="flex items-center justify-between lg:px-8 px-4">
           <div className="flex items-center gap-4">
@@ -134,8 +133,6 @@ const DashboardLayout = () => {
             </div>
           </div>
         </nav>
-
-        {/* MAIN PAGE CONTENT */}
         <div className="px-2">
           <Outlet />
         </div>

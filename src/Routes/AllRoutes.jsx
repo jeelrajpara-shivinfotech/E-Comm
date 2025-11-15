@@ -6,6 +6,7 @@ import Category from "../Page/DashBoard/Category";
 import Ecommerce from "../Page/DashBoard/E-Commerce";
 import { ROUTES } from "./RouteConstants";
 import Product from "../Page/DashBoard/Product";
+import Report from "../Page/DashBoard/Report";
 
 export const routes = [
   {
@@ -36,6 +37,14 @@ export const routes = [
         element : <Dashboard/>,
         children : [
           {index : true , element : <Product/>}
+        ]
+      },
+
+      {
+        path : ROUTES.REPORT,
+        element : <Dashboard/>,
+        children : [
+          {index : true , element : <Report/>}
         ]
       }
     ],

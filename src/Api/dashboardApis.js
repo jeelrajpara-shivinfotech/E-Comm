@@ -15,13 +15,3 @@ export const getOrderStatusCount = async (timeFrame) => {
     const response = await axiosInstance.post(API_ROUTES.ORDER_STATUS_COUNT, timeFrame);
     return response.data;
 }
-
-export const getUserReport = async (payload) => {
-    const response = await axiosInstance.post(API_ROUTES.USER_REPORT , payload);
-    return response.data;
-}
-
-export const getOrderReport = async (payload) => {
-    const response = await axiosInstance.post(API_ROUTES.ORDER_REPORT , payload);
-    return response.data;
-}
