@@ -329,6 +329,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         label={productLabelConsts.productSize}
                                                         placeholder={productPlaceHolder.productSize}
                                                         required
+                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
                                                     />
 
                                                     <BaseInput
@@ -337,6 +338,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         placeholder={productPlaceHolder.productPrice}
                                                         type="number"
                                                         required
+                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
                                                     />
 
                                                     <BaseInput
@@ -345,6 +347,7 @@ export default function CreateEdit({ onClose, editData }) {
                                                         placeholder={productPlaceHolder.productQuantity}
                                                         type="number"
                                                         required
+                                                        onKeyDownCustom={(e) => { if (e.key === "-" || e.key === "_" ) { e.preventDefault(); } }}
                                                     />
                                                 </div>
 
