@@ -10,21 +10,44 @@ export const productHeaders = {
     noProductFound: "No product found",
 };
 
-export const productColumns = (handleView , handleDelete, handleEdit) => [
+export const productColumns = (handleView, handleDelete, handleEdit) => [
     {
         key: "id",
         label: "ID",
-        sortable : true
+        sortable: true
     },
     {
         key: "name",
         label: "NAME",
-        sortable : true
+        sortable: true,
+        render: (value) => {
+            const shouldTruncate = value?.length > 10;
+            const truncatedText = shouldTruncate ? value.slice(0, 10) + '..' : value
+
+            return (
+                <div className="relative group">
+                    <span
+                        className={`block truncate text-gray-800 transition ${shouldTruncate ? "cursor-pointer" : ""
+                            }`}
+                    >
+                        {truncatedText}
+                    </span>
+                    {shouldTruncate && (
+                        <div className="absolute top-full left-0 cursor-pointer mt-2 hidden group-hover:block z-50">
+                            <div className="bg-gray-200 text-gray-900 text-xs rounded-md py-2 px-3 shadow-md max-w-xs w-max whitespace-normal wrap-break-word">
+                                {value}
+                                <div className="absolute bottom-full left-4 w-0 h-0 border-4 border-transparent border-b-gray-200"></div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        },
     },
     {
-        key : "category",
-        label : "CATEGORY NAME",
-        render : (value) => <span>{value?.category_name}</span>,
+        key: "category",
+        label: "CATEGORY NAME",
+        render: (value) => <span>{value?.category_name}</span>,
 
     },
     {
@@ -36,7 +59,7 @@ export const productColumns = (handleView , handleDelete, handleEdit) => [
         key: "createdAt",
         label: "CREATED AT",
         render: (value) => <span>{new Date(value).toLocaleDateString()}</span>,
-        sortable : true
+        sortable: true
     },
     {
         key: "actions",
@@ -83,31 +106,31 @@ export const productLabelConsts = {
     productQuantity: "Quantity",
     productDescription: "Product description",
     productSize: "Size",
-    productImage : "Product image",
-    addVariant : "Add variant"
+    productImage: "Product image",
+    addVariant: "Add variant"
 }
 
 export const productPlaceHolder = {
-    searchPlaceHolder: "Search product name",
-    productNamePlaceHolder : "Enter product name",
-    selectCategoryPlaceHolder : "Select category",
-    productTitlePlaceHolder : "Enter product title",
-    productDescription : "Enter product description",
-    productColor : "Enter product color",
-    productSize : "Enter product size",
-    productPrice : "Enter product price",
-    productQuantity : "Enter quantity"
+    searchPlaceHolder: "Search product or category name",
+    productNamePlaceHolder: "Enter product name",
+    selectCategoryPlaceHolder: "Select category",
+    productTitlePlaceHolder: "Enter product title",
+    productDescription: "Enter product description",
+    productColor: "Enter product color",
+    productSize: "Enter product size",
+    productPrice: "Enter product price",
+    productQuantity: "Enter quantity"
 }
 
 export const productFieldConsts = {
-  name: "name",
-  categoryId: "category_id",
-  productVariants: "product_variants",
-  productTitle: "product_title_name",
-  productDescription: "description",
-  productColor: "color",
-  productSize: "size",
-  productPrice: "price",
-  productQuantity: "quantity",
-  productImage: "variant_image",
+    name: "name",
+    categoryId: "category_id",
+    productVariants: "product_variants",
+    productTitle: "product_title_name",
+    productDescription: "description",
+    productColor: "color",
+    productSize: "size",
+    productPrice: "price",
+    productQuantity: "quantity",
+    productImage: "variant_image",
 };

@@ -48,7 +48,7 @@ export const categoryColumns = (handleDelete, handleEdit, handleView) => [
     label: "description",
     render: (value) => {
       const shouldTruncate = value?.length > 10;
-      const truncatedText = shouldTruncate ? value.slice(0, 10) + '....' : value
+      const truncatedText = shouldTruncate ? value.slice(0, 10) + '..' : value
 
       return (
         <div className="relative group">

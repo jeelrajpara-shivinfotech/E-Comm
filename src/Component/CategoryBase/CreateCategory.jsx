@@ -12,7 +12,8 @@ import {
 import BaseButton from "../BaseComponents/BaseButton";
 import { errorMessages } from "../../common/validation";
 import { baseImageUrl } from "../../common/constants/config";
-import fallbackImage from "../../assets/bags.webp"
+import fallbackImage from "../../assets/bags.webp";
+import BaseLoader from "../BaseComponents/BaseLoader";
 
 const validationSchema = Yup.object({
   [createCategoryConstants.categoryName]: Yup.string()
@@ -25,14 +26,14 @@ const validationSchema = Yup.object({
     .test(
       "fileSize",
       errorMessages.CategoryImage,
-      (value) =>
-        !value || (value && value.size <= 1024 * 1024) 
+      (value) => !value || (value && value.size <= 1024 * 1024)
     )
     .nullable(),
 });
 
 function AddCategoryForm({ onClose, editData }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);         
+  const [loadingData, setLoadingData] = useState(true);
   const [preview, setPreview] = useState(null);
 
   const uploadImage = async (file) => {
@@ -54,22 +55,18 @@ function AddCategoryForm({ onClose, editData }) {
       const payload = {
         category_name: values.category_name,
         description: values.category_description,
-        category_image: values.category_image
       };
 
-      if (imageName) {
-        payload.category_image = imageName;
-      }
+      if (imageName) payload.category_image = imageName;
 
       let res;
       if (editData) {
         res = await updateCategory(editData.id, payload);
-        toast.success(res?.message);
       } else {
         res = await createCategory(payload);
-        toast.success(res?.message);
       }
 
+      toast.success(res?.message);
       resetForm();
       onClose?.();
     } catch (error) {
@@ -87,101 +84,119 @@ function AddCategoryForm({ onClose, editData }) {
   };
 
   useEffect(() => {
+    if (!editData) {
+      setLoadingData(false);
+      return;
+    }
+
     if (editData?.category_image) {
       const img = new Image();
       const imageUrl = `${baseImageUrl}/${editData.category_image}`;
-
       img.src = imageUrl;
+
       img.onload = () => {
         setPreview(imageUrl);
+        setLoadingData(false);
       };
       img.onerror = () => {
         setPreview(fallbackImage);
+        setLoadingData(false);
       };
+    } else {
+      setLoadingData(false);
     }
   }, [editData]);
 
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={
-        editData
-          ? {
-            [createCategoryConstants.categoryName]: editData.category_name || "",
-            [createCategoryConstants.categoryDescription]: editData.description || "",
-            [createCategoryConstants.categoryImage]: null,
-          }
-          : initialValues
-      }
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ setFieldValue }) => (
-        <Form className="flex flex-col gap-2">
-          <BaseInput
-            id={createCategoryConstants.categoryName}
-            name={createCategoryConstants.categoryName}
-            label={createCategoryLabel.categoryLabelName}
-            placeholder={createCategoryPlaceholder.categoryNamePlaceholder}
-            required
-          />
-
-          <BaseInput
-            id={createCategoryConstants.categoryDescription}
-            name={createCategoryConstants.categoryDescription}
-            label={createCategoryLabel.categoryLabelDesc}
-            placeholder={createCategoryPlaceholder.categoryDescPlaceholder}
-            required
-          />
-
-          <BaseInput
-            id={createCategoryConstants.categoryImage}
-            name={createCategoryConstants.categoryImage}
-            type={createCategoryConstants.file}
-            label={createCategoryLabel.categoryLabelImage}
-            setFieldValue={setFieldValue}
-            setPreview={setPreview}
-          />
-
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              className="w-24 h-24 rounded-lg object-cover border"
-            />
-          )}
-
-          <div className="flex justify-end gap-2">
-            <BaseButton
-              type="button"
-              className="border border-gray-300 bg-white rounded-md"
-              textColor="black"
-              onClick={onClose}
-              icon={false}
-            >
-              {createCategoryConstants.cancelButton}
-            </BaseButton>
-
-            <BaseButton
-              type="submit"
-              disabled={loading}
-              className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
-              icon={false}
-            >
-              {loading
-                ? editData
-                  ? createCategoryConstants.updatingButton
-                  : createCategoryConstants.addingButton
-                : editData
-                  ? createCategoryConstants.updateButton
-                  : createCategoryConstants.addButton
-              }
-            </BaseButton>
-          </div>
-        </Form>
+    <div className="relative w-full min-h-[250px]">
+      {loadingData && (
+          <BaseLoader />
       )}
-    </Formik>
+
+      <Formik
+        enableReinitialize
+        initialValues={
+          editData
+            ? {
+                [createCategoryConstants.categoryName]: editData.category_name || "",
+                [createCategoryConstants.categoryDescription]: editData.description || "",
+                [createCategoryConstants.categoryImage]: null,
+              }
+            : initialValues
+        }
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ setFieldValue }) => (
+          <Form className="flex flex-col gap-2">
+
+            <BaseInput
+              id={createCategoryConstants.categoryName}
+              name={createCategoryConstants.categoryName}
+              label={createCategoryLabel.categoryLabelName}
+              placeholder={createCategoryPlaceholder.categoryNamePlaceholder}
+              required
+            />
+
+            <BaseInput
+              id={createCategoryConstants.categoryDescription}
+              name={createCategoryConstants.categoryDescription}
+              label={createCategoryLabel.categoryLabelDesc}
+              placeholder={createCategoryPlaceholder.categoryDescPlaceholder}
+              required
+            />
+
+            <BaseInput
+              id={createCategoryConstants.categoryImage}
+              name={createCategoryConstants.categoryImage}
+              type={createCategoryConstants.file}
+              label={createCategoryLabel.categoryLabelImage}
+              setFieldValue={setFieldValue}
+              setPreview={setPreview}
+            />
+
+            {preview && (
+              <img
+                src={preview}
+                alt="Preview"
+                className="w-24 h-24 rounded-lg object-cover border"
+              />
+            )}
+
+            <div className="flex justify-end gap-2">
+              <BaseButton
+                type="button"
+                className="border border-gray-300 bg-white rounded-md"
+                textColor="black"
+                onClick={onClose}
+                icon={false}
+              >
+                {createCategoryConstants.cancelButton}
+              </BaseButton>
+
+              <BaseButton
+                type="submit"
+                disabled={loading}
+                className="rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                icon={false}
+              >
+                {loading
+                  ? editData
+                    ? createCategoryConstants.updatingButton
+                    : createCategoryConstants.addingButton
+                  : editData
+                  ? createCategoryConstants.updateButton
+                  : createCategoryConstants.addButton}
+              </BaseButton>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      {loading && (
+          <BaseLoader />
+      )}
+    </div>
   );
 }
 
